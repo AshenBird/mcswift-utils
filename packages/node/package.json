@@ -10,24 +10,24 @@
     "lib/**/*",
     "types/**/*"
   ],
-  "exports":{
-    ".":{
-      "default":"./lib/esm/index.mjs",
-      "import":"./lib/esm/index.mjs",
-      "require":"./lib/cjs/index.cjs",
-      "types":"./types/index.d.ts"
+  "exports": {
+    ".": {
+      "default": "./lib/esm/index.mjs",
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./types/index.d.ts"
     },
-    "./child_process":{
-      "default":"./lib/esm/child_process.mjs",
-      "import":"./lib/esm/child_process.mjs",
-      "require":"./lib/cjs/child_process.cjs",
-      "types":"./types/child_process.d.ts"
+    "./child_process": {
+      "default": "./lib/esm/child_process.mjs",
+      "import": "./lib/esm/child_process.mjs",
+      "require": "./lib/cjs/child_process.cjs",
+      "types": "./types/child_process.d.ts"
     },
-    "./path":{
-      "default":"./lib/esm/path.mjs",
-      "import":"./lib/esm/path.mjs",
-      "require":"./lib/cjs/path.cjs",
-      "types":"./types/path.d.ts"
+    "./path": {
+      "default": "./lib/esm/path.mjs",
+      "import": "./lib/esm/path.mjs",
+      "require": "./lib/cjs/path.cjs",
+      "types": "./types/path.d.ts"
     }
   },
   "keywords": [],

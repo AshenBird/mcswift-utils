@@ -15,10 +15,10 @@ import { execSync } from "node:child_process";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 const cli = new Cli();
-const rl = createInterface({
-  input,
-  output,
-});
+// const rl = createInterface({
+//   input,
+//   output,
+// });
 cli.use("build", (options) => {
   const { pack } = options;
   if (pack === "types") return;
@@ -102,10 +102,13 @@ const buildPackage = async (name: string) => {
   await Promise.all(tasks);
   Logger.log(`${name} BUILD FINISH`);
 };
-
+const workspace = new NpmPackage(Path.resolve(__dirname, `../`))
 const checkPackage = (name: string) => {
   const dir = Path.resolve(__dirname, `../packages/${name}`);
   const packInfo = new NpmPackage(dir);
+  
+  const version = workspace.data.version as string
+  packInfo.setPackageInfo("version",version)
   let result = true;
   if (!existsSync(Path.join(dir, ".npmrc"))) {
     copyFileSync(
@@ -196,7 +199,8 @@ const bat = async (handle: (name: string) => any) => {
       tasks.push(task);
     }
   }
-  return Promise.all(tasks).catch((r) => {
+  if(tasks.length===0)return
+  await Promise.all(tasks).catch((r) => {
     Logger.error(r);
   });
 };
