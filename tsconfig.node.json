@@ -1,0 +1,9 @@
+{
+  // "include": [
+  //   "src/node/**/*.ts"
+  // ],
+  "compilerOptions":{
+    "emitDeclarationOnly":false
+  },
+  "extends": "./tsconfig.json"
+}

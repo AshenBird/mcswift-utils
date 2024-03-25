@@ -1,0 +1,23 @@
+{
+  "name": "@mcswift/workspace",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cli": "tsx scripts/cli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.30",
+    "chalk": "^5.3.0",
+    "esbuild": "^0.20.2",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.10",
+    "tsx": "^3.12.6",
+    "typescript": "^5.4.3"
+  }
+}

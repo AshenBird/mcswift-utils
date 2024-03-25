@@ -1,0 +1,28 @@
+{
+  "name": "@mcswift/types",
+  "version": "0.1.0",
+  "description": "",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "exports": {
+    "types": "./lib/index.d.ts"
+  },
+  "files": [
+    "types/**/*"
+  ],
+  "keywords": [
+    "typescript",
+    "types",
+    "util",
+    "json"
+  ],
+  "author": {
+    "email": "hi@mcswift.cn",
+    "name": "mcswift"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+}

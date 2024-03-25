@@ -1,0 +1,46 @@
+{
+  "name": "@mcswift/base-utils",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "lib/cjs/index.cjs",
+  "module": "lib/esm/index.mjs",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "types/**/*"
+  ],
+  "scripts": {
+    "build": "tsx scripts/build.ts"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/commonjs/index.cjs",
+      "types": "./types/index.d.ts"
+    }
+  },
+  "keywords": [],
+  "author": {
+    "name": "mcswift",
+    "email": "develop@mcswift.cn"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^18.15.11",
+    "esbuild": "^0.20.1",
+    "typescript": "^5.0.4"
+  },
+  "optionalDependencies": {
+    "zod": "^3.22.0"
+  },
+  "dependencies": {
+    "@json2csv/whatwg": "^7.0.6",
+    "@mcswift/bellman": "^0.0.7",
+    "@mcswift/types": "workspace:^",
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.2.0",
+    "nanoid": "^5.0.6"
+  }
+}

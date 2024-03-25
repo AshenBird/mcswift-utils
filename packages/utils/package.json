@@ -1,0 +1,67 @@
+{
+  "name": "@mcswift/utils",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "lib/cjs/index.cjs",
+  "module": "lib/esm/index.mjs",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "types/**/*"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./types/index.d.ts"
+    },
+    "./common": {
+      "import": "./lib/esm/common.mjs",
+      "require": "./lib/cjs/common.cjs",
+      "types": "./types/common.d.ts"
+    },
+    "./node": {
+      "import": "./lib/esm/node.mjs",
+      "require": "./lib/cjs/node.cjs",
+      "types": "./types/node.d.ts"
+    },
+    "./windows": {
+      "import": "./lib/esm/windows.mjs",
+      "require": "./lib/cjs/windows.cjs",
+      "types": "./types/windows.d.ts"
+    },
+    "./child_process": {
+      "import": "./lib/esm/child_process.mjs",
+      "require": "./lib/cjs/child_process.cjs",
+      "types": "./types/child_process.d.ts"
+    },
+    "./cli": {
+      "import": "./lib/esm/cli.mjs",
+      "require": "./lib/cjs/cli.cjs",
+      "types": "./types/cli.d.ts"
+    }
+  },
+  "keywords": [],
+  "author": {
+    "name": "mcswift",
+    "email": "develop@mcswift.cn"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@mcswift/base-utils": "workspace:^",
+    "@mcswift/cli": "workspace:^",
+    "@mcswift/esbuild": "workspace:^",
+    "@mcswift/node": "workspace:^",
+    "@mcswift/npm": "workspace:^",
+    "@mcswift/svn": "workspace:^",
+    "@mcswift/tsc": "workspace:^",
+    "@mcswift/types": "workspace:^",
+    "@mcswift/windows": "workspace:^"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@mcswift/svn",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "lib/cjs/index.cjs",
+  "module": "lib/esm/index.mjs",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "types/**/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@mcswift/node": "workspace:^",
+    "@mcswift/types": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.3"
+  }
+}
