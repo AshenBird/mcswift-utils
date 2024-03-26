@@ -1,5 +1,5 @@
 
-import { readdirSync } from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import { isAbsolute, join, resolve } from 'node:path'
 import { cwd } from 'node:process'
 export const getAbsolutePath = (raw: string,base:string=cwd()): string => {
@@ -15,10 +15,15 @@ export const getAbsolutePath = (raw: string,base:string=cwd()): string => {
  * @param root 
  * @returns 
  */
-export const getCommandFile = (command: string, root = './') => {
+export const getCommandFile = (command: string, root = './'):string|undefined => {
   const p = getAbsolutePath(root)
   let filePath = ''
   const dir = join(p, 'node_modules', '.bin')
+  if(!existsSync(dir)){
+    const f = resolve(p,"../")
+    if(!existsSync)return undefined
+    return getCommandFile( command, f )
+  }
   const dirents = readdirSync(dir, {
     withFileTypes: true,
   })

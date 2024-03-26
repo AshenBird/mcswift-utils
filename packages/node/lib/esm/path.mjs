@@ -1,5 +1,5 @@
 // packages/node/src/path.ts
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { isAbsolute, join, resolve } from "node:path";
 import { cwd } from "node:process";
 var getAbsolutePath = (raw, base = cwd()) => {
@@ -12,6 +12,12 @@ var getCommandFile = (command, root = "./") => {
   const p = getAbsolutePath(root);
   let filePath = "";
   const dir = join(p, "node_modules", ".bin");
+  if (!existsSync(dir)) {
+    const f = resolve(p, "../");
+    if (!existsSync)
+      return void 0;
+    return getCommandFile(command, f);
+  }
   const dirents = readdirSync(dir, {
     withFileTypes: true
   });

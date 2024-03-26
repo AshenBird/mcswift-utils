@@ -39,6 +39,12 @@ var getCommandFile = (command, root = "./") => {
   const p = getAbsolutePath(root);
   let filePath = "";
   const dir = (0, import_node_path.join)(p, "node_modules", ".bin");
+  if (!(0, import_node_fs.existsSync)(dir)) {
+    const f = (0, import_node_path.resolve)(p, "../");
+    if (!import_node_fs.existsSync)
+      return void 0;
+    return getCommandFile(command, f);
+  }
   const dirents = (0, import_node_fs.readdirSync)(dir, {
     withFileTypes: true
   });

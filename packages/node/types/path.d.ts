@@ -5,7 +5,7 @@ export declare const getAbsolutePath: (raw: string, base?: string) => string;
  * @param root
  * @returns
  */
-export declare const getCommandFile: (command: string, root?: string) => string;
+export declare const getCommandFile: (command: string, root?: string) => string | undefined;
 /**
  * 递归获取路径下所有的文件路径
  * @param path
