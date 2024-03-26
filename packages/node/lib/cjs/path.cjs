@@ -26,7 +26,7 @@ __export(path_exports, {
   getFilePaths: () => getFilePaths
 });
 module.exports = __toCommonJS(path_exports);
-var import_fs_extra = require("fs-extra");
+var import_node_fs = require("node:fs");
 var import_node_path = require("node:path");
 var import_node_process = require("node:process");
 var getAbsolutePath = (raw, base = (0, import_node_process.cwd)()) => {
@@ -39,7 +39,7 @@ var getCommandFile = (command, root = "./") => {
   const p = getAbsolutePath(root);
   let filePath = "";
   const dir = (0, import_node_path.join)(p, "node_modules", ".bin");
-  const dirents = (0, import_fs_extra.readdirSync)(dir, {
+  const dirents = (0, import_node_fs.readdirSync)(dir, {
     withFileTypes: true
   });
   for (const dirent of dirents) {
@@ -60,7 +60,7 @@ var getFilePaths = (path, exclude = []) => {
     }
     nextExclude.push(getAbsolutePath(ex, path));
   }
-  const dirents = (0, import_fs_extra.readdirSync)(path, { withFileTypes: true });
+  const dirents = (0, import_node_fs.readdirSync)(path, { withFileTypes: true });
   for (const item of dirents) {
     const current = (0, import_node_path.join)(path, item.name);
     if (nextExclude.includes(current))
@@ -75,7 +75,7 @@ var getFilePaths = (path, exclude = []) => {
 };
 var getDirectoryPaths = (path) => {
   const result = [];
-  const dirents = (0, import_fs_extra.readdirSync)(path, { withFileTypes: true });
+  const dirents = (0, import_node_fs.readdirSync)(path, { withFileTypes: true });
   for (const item of dirents) {
     const current = (0, import_node_path.join)(path, item.name);
     if (item.isFile())

@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/esbuild",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -11,7 +11,10 @@
     "types/**/*"
   ],
   "keywords": [],
-  "author": "",
+  "author": {
+    "email": "hi@mcswift.cn",
+    "name": "McSwift"
+  },
   "license": "MIT",
   "dependencies": {
     "@mcswift/types": "workspace:^"
@@ -23,5 +26,13 @@
   },
   "peerDependencies": {
     "esbuild": "^0.20.2"
+  },
+  "scripts": {
+    "build": "cd ../../ && npm run build -- --pack=\"esbuild\"",
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"esbuild\""
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages/tree/main/packages/esbuild"
   }
 }

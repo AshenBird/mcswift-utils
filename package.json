@@ -1,14 +1,24 @@
 {
   "name": "@mcswift/workspace",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cli": "tsx scripts/cli"
+    "cli": "tsx scripts/cli",
+    "build": "tsx scripts/cli build",
+    "doctor": "tsx scripts/cli doctor",
+    "publish": "tsx scripts/cli publish"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "email": "hi@mcswift.cn",
+    "name": "McSwift"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

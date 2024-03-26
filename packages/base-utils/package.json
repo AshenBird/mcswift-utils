@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/base-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -11,7 +11,8 @@
     "types/**/*"
   ],
   "scripts": {
-    "build": "tsx scripts/build.ts"
+    "build": "cd ../../ && npm run build -- --pack=\"base-utils\"",
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"base-utils\""
   },
   "exports": {
     ".": {
@@ -22,12 +23,11 @@
   },
   "keywords": [],
   "author": {
-    "name": "mcswift",
-    "email": "develop@mcswift.cn"
+    "email": "hi@mcswift.cn",
+    "name": "McSwift"
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
     "@types/node": "^18.15.11",
     "esbuild": "^0.20.1",
     "typescript": "^5.0.4"
@@ -40,7 +40,10 @@
     "@mcswift/bellman": "^0.0.7",
     "@mcswift/types": "workspace:^",
     "chalk": "^5.3.0",
-    "fs-extra": "^11.2.0",
     "nanoid": "^5.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages/tree/main/packages/base-utils"
   }
 }

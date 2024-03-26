@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/windows",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -11,7 +11,10 @@
     "types/**/*"
   ],
   "keywords": [],
-  "author": "",
+  "author": {
+    "email": "hi@mcswift.cn",
+    "name": "McSwift"
+  },
   "license": "MIT",
   "dependencies": {
     "@mcswift/node": "workspace:^",
@@ -20,5 +23,13 @@
   "devDependencies": {
     "@types/node": "^20.11.30",
     "typescript": "^5.4.3"
+  },
+  "scripts": {
+    "build": "cd ../../ && npm run build -- --pack=\"windows\"",
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"windows\""
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages/tree/main/packages/windows"
   }
 }

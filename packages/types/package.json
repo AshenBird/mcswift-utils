@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/types",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "types": "./lib/index.d.ts",
   "type": "module",
@@ -18,11 +18,19 @@
   ],
   "author": {
     "email": "hi@mcswift.cn",
-    "name": "mcswift"
+    "name": "McSwift"
   },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.24",
     "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build": "cd ../../ && npm run build -- --pack=\"types\"",
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"types\""
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages/tree/main/packages/types"
   }
 }

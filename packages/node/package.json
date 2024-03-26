@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/node",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -31,7 +31,10 @@
     }
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "email": "hi@mcswift.cn",
+    "name": "McSwift"
+  },
   "license": "MIT",
   "dependencies": {
     "@mcswift/types": "workspace:^"
@@ -39,5 +42,13 @@
   "devDependencies": {
     "@types/node": "^20.11.30",
     "typescript": "^5.4.3"
+  },
+  "scripts": {
+    "build": "cd ../../ && npm run build -- --pack=\"node\"",
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"node\""
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages/tree/main/packages/node"
   }
 }

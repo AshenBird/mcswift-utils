@@ -1,5 +1,5 @@
 // packages/node/src/path.ts
-import { readdirSync } from "fs-extra";
+import { readdirSync } from "node:fs";
 import { isAbsolute, join, resolve } from "node:path";
 import { cwd } from "node:process";
 var getAbsolutePath = (raw, base = cwd()) => {

@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -44,8 +44,8 @@
   },
   "keywords": [],
   "author": {
-    "name": "mcswift",
-    "email": "develop@mcswift.cn"
+    "email": "hi@mcswift.cn",
+    "name": "McSwift"
   },
   "license": "MIT",
   "devDependencies": {
@@ -63,5 +63,13 @@
     "@mcswift/tsc": "workspace:^",
     "@mcswift/types": "workspace:^",
     "@mcswift/windows": "workspace:^"
+  },
+  "scripts": {
+    "build": "cd ../../ && npm run build -- --pack=\"utils\"",
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"utils\""
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages/tree/main/packages/utils"
   }
 }
