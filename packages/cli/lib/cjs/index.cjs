@@ -79,7 +79,7 @@ var Cli = class {
     this.map.set(name, command);
   }
   start() {
-    const [node, entry, name, ...args] = import_node_process.argv;
+    const [_node, _entry, name, ...args] = import_node_process.argv;
     const command = this.map.get(name);
     if (!command) {
       return;

@@ -33,8 +33,8 @@ export class Scheduler {
   }
   private optionInit(options: SchedulerInitOptions) {
     for (const [key, item] of Object.entries(options)) {
-      // @ts-ignore 同源的类型，肯定可以的
-      this.options[key] = item;
+      // @ts-expect-error 同源类型，一定相似
+      this.options[key] = item
     }
   }
   private pickShortestQueue() {
@@ -49,8 +49,8 @@ export class Scheduler {
   add<T>(task: Task<T>) {
     const taskRecord = {
       action: () => new Promise(() => {}),
-      resolve: (value: T) => {},
-      reject: (err: any) => {},
+      resolve: (_value: T) => {},
+      reject: (_err: any) => {},
     };
     const result = new Promise<T>((resolve, reject) => {
       taskRecord.resolve = resolve;
@@ -111,12 +111,13 @@ export class Scheduler {
 }
 
 
-export type Task<T extends unknown> = () => Promise<T>;
+export type Task<T> = () => Promise<T>;
 export type TaskRecord<T> = {
   action: () => Promise<unknown>;
   resolve: (value: T) => void;
   reject: (err: any) => void;
 };
+
 export type TaskMap = Map<symbol, TaskRecord<any>>;
 export type SchedulerOptions = {
   delay: number;

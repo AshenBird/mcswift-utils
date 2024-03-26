@@ -3,7 +3,7 @@ export const isNumber = (val: unknown): val is number => typeof val === 'number'
 export const isBigint = (val: unknown): val is bigint => typeof val === 'bigint'
 export const isBoolean = (val: unknown): val is boolean =>
   typeof val === 'boolean'
-export const isFunction = (val: unknown): val is Function =>
+export const isFunction = (val: unknown): val is ((...args:unknown[]) =>unknown)=>
   typeof val === 'function'
 export const isSymbol = (val: unknown): val is symbol => typeof val === 'symbol'
 

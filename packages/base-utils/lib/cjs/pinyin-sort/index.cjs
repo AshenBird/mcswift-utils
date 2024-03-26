@@ -48,7 +48,6 @@ var Pinyin = class _Pinyin {
   getFullChars(str) {
     let result = "";
     let name;
-    const reg = new RegExp("[a-zA-Z0-9- ]");
     for (let i = 0, len = str.length; i < len; i++) {
       const ch = str.substr(i, 1), unicode = ch.charCodeAt(0);
       if (unicode > 40869 || unicode < 19968) {

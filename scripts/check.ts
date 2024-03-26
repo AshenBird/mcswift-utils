@@ -1,12 +1,12 @@
 import chalk from "chalk";
-import { copyFileSync, existsSync } from "fs-extra";
+import { copyFileSync, existsSync, removeSync } from "fs-extra";
 import { join } from "path";
 import { Logger } from "../packages/base-utils/src";
 import { NpmPackage } from "../packages/npm/src";
 import { NPM } from "../packages/utils/src";
 import { getPackageDir, root, workspace } from "./utils";
 
-export const check = (name: string) => {
+export const check = async (name: string) => {
   const dir = getPackageDir(name);
   const packInfo = new NpmPackage(dir);
   const version = workspace.data.version as string
@@ -29,10 +29,17 @@ export const check = (name: string) => {
   packInfo.setPackageInfo("repository",repository)
   packInfo.setPackageInfo("author",author)
   let result = true;
-  if (!existsSync(join(dir, ".npmrc"))) {
+  if (existsSync(join(dir, ".npmrc"))) {
+    // copyFileSync(
+    //   join(root, `.npmrc`),
+    //   join(dir, ".npmrc")
+    // );
+    removeSync(join(dir, ".npmrc"))
+  }
+  if (!existsSync(join(dir, ".eslintrc.js"))) {
     copyFileSync(
-      join(root, `.npmrc`),
-      join(dir, ".npmrc")
+      join(root, `.eslintrc.js`),
+      join(dir, ".eslintrc.js")
     );
   }
   for (const field of ["main", "module", "type", "files"] as const) {

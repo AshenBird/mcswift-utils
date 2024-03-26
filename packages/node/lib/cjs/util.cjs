@@ -24,20 +24,19 @@ __export(util_exports, {
 });
 module.exports = __toCommonJS(util_exports);
 var import_node_os = require("node:os");
-var PlatformEnum = /* @__PURE__ */ ((PlatformEnum2) => {
-  PlatformEnum2["aix"] = "posix";
-  PlatformEnum2["android"] = "posix";
-  PlatformEnum2["darwin"] = "mac";
-  PlatformEnum2["freebsd"] = "posix";
-  PlatformEnum2["haiku"] = "posix";
-  PlatformEnum2["linux"] = "posix";
-  PlatformEnum2["openbsd"] = "posix";
-  PlatformEnum2["sunos"] = "posix";
-  PlatformEnum2["cygwin"] = "posix";
-  PlatformEnum2["win32"] = "windows";
-  PlatformEnum2["netbsd"] = "posix";
-  return PlatformEnum2;
-})(PlatformEnum || {});
+var PlatformEnum = {
+  aix: "posix",
+  android: "posix",
+  darwin: "mac",
+  freebsd: "posix",
+  haiku: "posix",
+  linux: "posix",
+  openbsd: "posix",
+  sunos: "posix",
+  cygwin: "posix",
+  win32: "windows",
+  netbsd: "posix"
+};
 var pipeCross = (imps) => {
   const imp = imps[PlatformEnum[(0, import_node_os.platform)()]];
   if (imp)

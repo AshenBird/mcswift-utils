@@ -50,11 +50,12 @@ export const getPathProgram = async (): Promise<Map<string, PathProgramInfo[]>> 
 };
 
 const readDirTaskInitFac = (path: string) => {
-  const result = (resolve: () => void, reject: (reason?: any) => void) => {
-    const thenHandle = (dirents: Dirent[]) => {
-      dirents.forEach((dirent) => createRecord(dirent, path));
-      resolve();
-    };
+  const result = (resolve: () => void, reject: (reason?: unknown) => void) => {
+    // @todo
+    // const thenHandle = (dirents: Dirent[]) => {
+    //   dirents.forEach((dirent) => createRecord(dirent, path));
+    //   resolve();
+    // };
     readdir(path, { withFileTypes: true }, (err, files) => {
       if (err) return reject(err);
       files.forEach((dirent) => createRecord(dirent, path));

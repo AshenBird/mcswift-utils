@@ -17,10 +17,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@mcswift/types": "workspace:^"
+    "@mcswift/types": "workspace:^",
+    "eslint": "^8.57.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
     "esbuild": "^0.20.2",
     "typescript": "^5.4.3"
   },

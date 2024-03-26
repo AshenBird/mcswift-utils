@@ -6,19 +6,19 @@ interface PlatformsImplement<T> {
   posix?:T
 }
 
-enum PlatformEnum {
-  aix="posix",
-  android= "posix",
-  darwin="mac",
-  freebsd="posix",
-  haiku="posix",
-  linux="posix",
-  openbsd="posix",
-  sunos="posix",
-  cygwin="posix",
-  win32="windows",
-  netbsd="posix"
-}
+const PlatformEnum = {
+  aix:"posix",
+  android: "posix",
+  darwin:"mac",
+  freebsd:"posix",
+  haiku:"posix",
+  linux:"posix",
+  openbsd:"posix",
+  sunos:"posix",
+  cygwin:"posix",
+  win32:"windows",
+  netbsd:"posix"
+} as const
 
 export const pipeCross = <T>(imps:PlatformsImplement<T>)=>{
   const imp = imps[PlatformEnum[platform()]]

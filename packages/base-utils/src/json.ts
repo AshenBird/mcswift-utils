@@ -1,5 +1,5 @@
 import { Logger } from "./logger";
-export const jsonTryParse = (val: string, errorResult: any = undefined,reviver?: ((this: any, key: string, value: any) => any) | undefined) => {
+export const jsonTryParse = (val: string, errorResult: unknown = undefined,reviver?: ((this: unknown, key: string, value: unknown) => unknown) | undefined) => {
   try {
     return JSON.parse(val,reviver);
   } catch {
@@ -8,23 +8,23 @@ export const jsonTryParse = (val: string, errorResult: any = undefined,reviver?:
   }
 };
 export function toJsonString(
-  value: any,
-  errorResult?: any,
-  replacer?: ((this: any, key: string, value: any) => any) | undefined,
+  value: unknown,
+  errorResult?: unknown,
+  replacer?: ((this: unknown, key: string, value: unknown) => unknown) | undefined,
   space?: string | number | undefined
 ): string;
 export function toJsonString(
   val: unknown,
-  errorResult: any = undefined,
+  errorResult: unknown = undefined,
   replacer:
-    | ((this: any, key: string, value: any) => any)
+    | ((this: unknown, key: string, value: unknown) => unknown)
     | undefined 
     | null = undefined,
   space?: string | number | undefined
 ) {
   try {
     return JSON.stringify(val, replacer||undefined, space||2);
-  } catch (e) {
+  } catch (_e:unknown) {
     Logger.error("JSON 化输出失败");
     return errorResult;
   }

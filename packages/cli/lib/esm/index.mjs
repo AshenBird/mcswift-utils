@@ -52,7 +52,7 @@ var Cli = class {
     this.map.set(name, command);
   }
   start() {
-    const [node, entry, name, ...args] = argv;
+    const [_node, _entry, name, ...args] = argv;
     const command = this.map.get(name);
     if (!command) {
       return;

@@ -30,10 +30,6 @@ var getPathProgram = async () => {
 };
 var readDirTaskInitFac = (path) => {
   const result = (resolve, reject) => {
-    const thenHandle = (dirents) => {
-      dirents.forEach((dirent) => createRecord(dirent, path));
-      resolve();
-    };
     readdir(path, { withFileTypes: true }, (err, files) => {
       if (err)
         return reject(err);

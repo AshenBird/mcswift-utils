@@ -32,7 +32,7 @@ export class Pinyin {
   getFullChars(str: string) {
     let result = "";
     let name;
-    const reg = new RegExp("[a-zA-Z0-9- ]");
+    // const reg = new RegExp("[a-zA-Z0-9- ]");
     for (let i = 0, len = str.length; i < len; i++) {
       const ch = str.substr(i, 1),
         unicode = ch.charCodeAt(0);

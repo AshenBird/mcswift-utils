@@ -50,6 +50,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
     "tsx": "^3.12.6",
     "typescript": "^5.0.4"
   },
@@ -62,7 +64,8 @@
     "@mcswift/svn": "workspace:^",
     "@mcswift/tsc": "workspace:^",
     "@mcswift/types": "workspace:^",
-    "@mcswift/windows": "workspace:^"
+    "@mcswift/windows": "workspace:^",
+    "eslint": "^8.57.0"
   },
   "scripts": {
     "build": "cd ../../ && npm run build -- --pack=\"utils\"",

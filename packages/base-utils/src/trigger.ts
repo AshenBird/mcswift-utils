@@ -25,8 +25,8 @@ export class Trigger<T = undefined> {
     });
   }
   off(key:symbol):void;
-  off(callback:(payload?:T)=>{}):void;
-  off(arg:symbol|((payload?:T)=>{}) ):void{
+  off(callback:(payload?:T)=>unknown):void;
+  off(arg:symbol|((payload?:T)=>unknown) ):void{
     if(typeof arg ==="symbol"){
       this.callbackMap.delete(arg);
       return;
