@@ -1,4 +1,4 @@
-import { Cli } from "../packages/cli/src";
+import { Cli } from "@mcswift/cli";
 import { addCommand } from "./add";
 import { build } from "./build";
 import { check } from "./check";
