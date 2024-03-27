@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/workspace",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "",
   "scripts": {
@@ -8,6 +8,7 @@
     "build": "tsx scripts/cli build",
     "doctor": "tsx scripts/cli doctor",
     "publish": "tsx scripts/cli publish",
+    "prepublish": "tsx scripts/cli prepublish",
     "eslint": "eslint"
   },
   "repository": {
@@ -33,6 +34,7 @@
     "fs-extra": "^11.2.0",
     "glob": "^10.3.10",
     "tsx": "^3.12.6",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "zod": "^3.22.0"
   }
 }
