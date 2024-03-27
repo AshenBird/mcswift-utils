@@ -25,7 +25,6 @@ __reExport(src_exports, require("@mcswift/esbuild"), module.exports);
 __reExport(src_exports, require("@mcswift/npm"), module.exports);
 __reExport(src_exports, require("@mcswift/svn"), module.exports);
 __reExport(src_exports, require("@mcswift/tsc"), module.exports);
-__reExport(src_exports, require("@mcswift/types"), module.exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   ...require("./common.cjs"),
@@ -35,6 +34,5 @@ __reExport(src_exports, require("@mcswift/types"), module.exports);
   ...require("@mcswift/esbuild"),
   ...require("@mcswift/npm"),
   ...require("@mcswift/svn"),
-  ...require("@mcswift/tsc"),
-  ...require("@mcswift/types")
+  ...require("@mcswift/tsc")
 });

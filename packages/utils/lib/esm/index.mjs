@@ -7,4 +7,3 @@ export * from "@mcswift/esbuild";
 export * from "@mcswift/npm";
 export * from "@mcswift/svn";
 export * from "@mcswift/tsc";
-export * from "@mcswift/types";
