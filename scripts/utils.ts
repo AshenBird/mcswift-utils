@@ -1,7 +1,7 @@
 import { readdirSync } from "node:fs";
 import { NpmPackage } from "../packages/npm/src";
 import { resolve } from "node:path";
-import { Logger } from "../packages/base-utils/src";
+import { Logger } from "@mcswift/base-utils";
 export const workspace = new NpmPackage(resolve(__dirname, `../`));
 export const root = resolve(__dirname, `../`)
 export const getPackageDir =(name:string)=>resolve(__dirname, `../packages/${name}`)

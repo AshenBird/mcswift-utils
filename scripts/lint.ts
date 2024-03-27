@@ -1,10 +1,11 @@
-import { Logger } from "../packages/base-utils/src";
+
 import { ESLint } from "eslint";
 import { getPackageDir,root as _ } from "./utils";
 import chalk from "chalk";
 // @ts-ignore
 import  baseConfig from "../.eslintrc.js"
 import { join } from "node:path";
+import { Logger } from "@mcswift/base-utils";
 // const cols = process.stdout.columns;
 const createLine = (char:string,head:string="")=>{
   const cols =process.stdout.columns 

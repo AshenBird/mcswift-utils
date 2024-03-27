@@ -1,7 +1,7 @@
-import { Logger } from "../packages/base-utils/src";
-import { mandatoryFileExtensionsPlugin } from "../packages/esbuild/src";
-import { getFilePaths } from "../packages/node/src";
-import { generatorDeclare } from "../packages/tsc/src";
+import { Logger } from "@mcswift/base-utils";
+import { mandatoryFileExtensionsPlugin } from "@mcswift/esbuild";
+import { getFilePaths } from "@mcswift/node";
+import { generatorDeclare } from "@mcswift/tsc";
 import { join } from "path";
 import { build as _build } from "esbuild";
 import { rm } from "fs/promises";

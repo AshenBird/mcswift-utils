@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { Cli, Command } from "../packages/cli/src";
-import { createFileSync, ensureDir, ensureDirSync } from "fs-extra";
+import { Cli, Command } from "@mcswift/cli";
+import { ensureDirSync } from "fs-extra";
 import { getPackageDir } from "./utils";
 import { existsSync } from "fs";
 import { join } from "path";
