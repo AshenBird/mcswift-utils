@@ -9,23 +9,26 @@ importers:
   .:
     devDependencies:
       '@mcswift/base-utils':
-        specifier: 1.0.5
-        version: 1.0.5
+        specifier: 1.0.6
+        version: 1.0.6
       '@mcswift/cli':
-        specifier: 1.0.5
-        version: 1.0.5(zod@3.22.4)
+        specifier: 1.0.6
+        version: 1.0.6(zod@3.22.4)
       '@mcswift/esbuild':
-        specifier: 1.0.5
-        version: 1.0.5(esbuild@0.20.2)
+        specifier: 1.0.6
+        version: 1.0.6(esbuild@0.20.2)
       '@mcswift/node':
-        specifier: 1.0.5
-        version: 1.0.5
+        specifier: 1.0.6
+        version: 1.0.6
       '@mcswift/npm':
-        specifier: 1.0.5
-        version: 1.0.5
+        specifier: 1.0.6
+        version: 1.0.6
       '@mcswift/tsc':
-        specifier: 1.0.5
-        version: 1.0.5
+        specifier: 1.0.6
+        version: 1.0.6
+      '@mcswift/types':
+        specifier: 1.0.6
+        version: 1.0.6
       '@types/eslint':
         specifier: ^8.56.6
         version: 8.56.6
@@ -846,12 +849,12 @@ packages:
     dependencies:
       '@json2csv/plainjs': 7.0.6
 
-  /@mcswift/base-utils@1.0.5:
-    resolution: {integrity: sha512-RbCWBq+Y/kgTTbh6XKYlWKL/XKSwPUOs1EvKg+7BjX/rCuhgRPOAAoLfda1lJc/ojrVEQoz7Gs4StEcAG5JwQg==}
+  /@mcswift/base-utils@1.0.6:
+    resolution: {integrity: sha512-7EhpcqRG9PRrYhXZTO1UGL5sf8wKw830uNbv3+nIno6RdkDR0hjFGQHOg6yzjtB4D264S5uw3qr4ukVpOKjBpw==}
     dependencies:
       '@json2csv/whatwg': 7.0.6
       '@mcswift/bellman': 0.0.7
-      '@mcswift/types': 1.0.5
+      '@mcswift/types': 1.0.6
       chalk: 5.3.0
       eslint: 8.57.0
       nanoid: 5.0.6
@@ -864,44 +867,44 @@ packages:
   /@mcswift/bellman@0.0.7:
     resolution: {integrity: sha512-DJhjSKJsgYCaioFxlaIr/W3astYVd/wIg/koUx4ftQJ9nrZyME6PPa22SUm109B8bL7tbnG3WB/LMpRC1l98iQ==}
 
-  /@mcswift/cli@1.0.5(zod@3.22.4):
-    resolution: {integrity: sha512-cz4jhlwjSa9C9AB3xed8hrUPbGjauxD4Xz4Je0Wr7k96jiKhFUD7/Cc4wwLwsCgFnmuTue9BiRDo7MD8qy/xQA==}
+  /@mcswift/cli@1.0.6(zod@3.22.4):
+    resolution: {integrity: sha512-M2+pcEFUYjVmVD2uM9Lz8d82BHysm0kLupB6Q8BnjFwcw2MI8404qIAcmsC6CV89hkXLQ3qpLHlNiQFFrMmkuA==}
     peerDependencies:
       zod: ^3.22.0
     dependencies:
-      '@mcswift/base-utils': 1.0.5
+      '@mcswift/base-utils': 1.0.6
       eslint: 8.57.0
       zod: 3.22.4
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@mcswift/esbuild@1.0.5(esbuild@0.20.2):
-    resolution: {integrity: sha512-GsYH3RBFNsk09NXizM/nSUrPx9NGjvc5SKyoVhdbYim1eXRLJQd74wSUNciyiMQEPOn7aQl+J+99iKASsitjkQ==}
+  /@mcswift/esbuild@1.0.6(esbuild@0.20.2):
+    resolution: {integrity: sha512-CEhmrfaSAaUMCwC+QrRTmASU2Mv8D8t3h2b0jfvfoibYtK3vyrU7YQuN2BUeL0sxHltVCJnXTzoJz5v4sTeeJQ==}
     peerDependencies:
       esbuild: ^0.20.2
     dependencies:
-      '@mcswift/types': 1.0.5
+      '@mcswift/types': 1.0.6
       esbuild: 0.20.2
       eslint: 8.57.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@mcswift/node@1.0.5:
-    resolution: {integrity: sha512-c1fjYnWXN2y2MKkJYIHdyxJi+xz5Yw9FnwUJixiZNv7n1fb5W1R1D1quJaJO3ukXVOoSlbiF9jt7vRUjDWGhRg==}
+  /@mcswift/node@1.0.6:
+    resolution: {integrity: sha512-1dijx4BXcOfbCM2HWg86Hp31+Xmcn+BTjyH3VyQytfAHHNWXiZh5PSx6b9eq1I6MUU2Zyi/oyGhJny+GeqAqgg==}
     dependencies:
-      '@mcswift/types': 1.0.5
+      '@mcswift/types': 1.0.6
       eslint: 8.57.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@mcswift/npm@1.0.5:
-    resolution: {integrity: sha512-PMbk/dmi5Sfrtx9Ujtwf9gsOIb6s6B/KBaUrR0t5jhQvvZM4xvo+31JFB0kdQmPKDQ39P9sltxo9sm2x9flaJg==}
+  /@mcswift/npm@1.0.6:
+    resolution: {integrity: sha512-29mBjUs+QXmwRJ7QLFi228/xrTNrbwvl1gyh3K9wQNnxQjZUEneWodGrixMnZo9ru7PtZHJa/2X5wCaBk7jEGA==}
     dependencies:
-      '@mcswift/node': 1.0.5
-      '@mcswift/types': 1.0.5
+      '@mcswift/node': 1.0.6
+      '@mcswift/types': 1.0.6
       eslint: 8.57.0
       npm: 10.5.0
       pnpm: 8.15.5
@@ -909,18 +912,18 @@ packages:
       - supports-color
     dev: true
 
-  /@mcswift/tsc@1.0.5:
-    resolution: {integrity: sha512-CFCg5pFFX6Tfx4hqKbkepKNKUN3l0bTTJ7eNEFFEfnvfVL6epKlL64Bh42S4hhfEvWaf6ca9jiy5GAXGyflaTw==}
+  /@mcswift/tsc@1.0.6:
+    resolution: {integrity: sha512-Ef2WmtmC/oVpQcMgx0PeCTDnjKBn2MI+ak4P9/9UFq1HpvO7K4EzFmJdCd7LtwJSm6kJnlfI89UJjDa20LOa1g==}
     dependencies:
-      '@mcswift/node': 1.0.5
-      '@mcswift/types': 1.0.5
+      '@mcswift/node': 1.0.6
+      '@mcswift/types': 1.0.6
       eslint: 8.57.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@mcswift/types@1.0.5:
-    resolution: {integrity: sha512-Q3nDw9aVzC5OI76MNiFF4h0tSrUKUSrR0MUzQGtrRh660Bn4uNO3DyOq+PWyCwFnZQwDnfesENCE7On5hdmIpQ==}
+  /@mcswift/types@1.0.6:
+    resolution: {integrity: sha512-jMMfaRmKLVbVY8HrQsVgMkMHlROEg+SRRUcTSybzGbQv5qv+s/kpB0tTiFWApS22xoEWaVsrRJ+P34v969ECZQ==}
     dependencies:
       eslint: 8.57.0
     transitivePeerDependencies:

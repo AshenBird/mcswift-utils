@@ -4,7 +4,7 @@ import { getPackageDir, root, workspace } from "./utils";
 import { copyFileSync, existsSync } from "node:fs";
 import { NpmPackage } from "@mcswift/npm"
 import { Logger } from "@mcswift/base-utils";
-import { NPM } from "../packages/types/lib/npm";
+import  { type NPM } from "@mcswift/types";
 export const check = async (name: string) => {
   const dir = getPackageDir(name);
   const packInfo = new NpmPackage(dir);
