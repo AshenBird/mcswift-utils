@@ -7,7 +7,7 @@ export interface PluginOptions {
      * The [esbuild filter](https://esbuild.github.io/plugins/#filters) to
      * apply for the filtering of files to parse with this plugin
      *
-     * @default /.*​/
+     * @default /.* /
      */
     filter?: OnLoadOptions["filter"];
     /**

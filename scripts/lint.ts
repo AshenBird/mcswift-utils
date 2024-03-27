@@ -3,7 +3,7 @@ import { ESLint } from "eslint";
 import { getPackageDir,root as _ } from "./utils";
 import chalk from "chalk";
 // @ts-ignore
-import baseConfig from "../.eslintrc.js"
+import  baseConfig from "../.eslintrc.js"
 import { join } from "node:path";
 // const cols = process.stdout.columns;
 const createLine = (char:string,head:string="")=>{

@@ -1,9 +1,9 @@
 {
   "name": "@mcswift/base-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "type": "module",
-  "main": "lib/cjs/index.cjs",
+  "main": "lib/esm/index.mjs",
   "module": "lib/esm/index.mjs",
   "types": "types/index.d.ts",
   "files": [

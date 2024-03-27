@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -35,6 +35,7 @@
     "directory": "https://github.com/AshenBird/packages/tree/main/packages/cli"
   },
   "dependencies": {
+    "@mcswift/base-utils": "workspace:^",
     "eslint": "^8.57.0"
   }
 }

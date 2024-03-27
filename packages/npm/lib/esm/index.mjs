@@ -1,6 +1,6 @@
 // packages/npm/src/index.ts
 import { getAbsolutePath } from "@mcswift/node";
-import { readJSONSync, writeJSONSync } from "fs-extra";
+import { readJSONSync, writeJSONSync } from "fs-extra/esm";
 var NpmPackage = class _NpmPackage {
   root;
   constructor(root) {

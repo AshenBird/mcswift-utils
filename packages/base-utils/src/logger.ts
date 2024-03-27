@@ -1,6 +1,6 @@
-import chalk from "chalk";
-import { toJsonString } from ".";
-
+import { Chalk } from "chalk";
+import { toJsonString } from "./json";
+const { red,white,green,yellow, blue,gray } = new Chalk()
 const getTimeText = () => {
   const date = new Date();
   const timeString = date.toLocaleTimeString();
@@ -16,24 +16,19 @@ const transform = (val:unknown)=>{
 }
 
 const log = (info: unknown) => {
-  const { white,green } = chalk;
   console.log(green(getTimeText()), white(transform(info)));
 };
 const info = (info: unknown) => {
-  const { gray,white } = chalk;
   console.log(gray(getTimeText()), white(transform(info)));
 };
 const error = (info: unknown) => {
-  const { red,white } = chalk;
   console.log(red(getTimeText()), white(transform(info)));
 };
 const warn = (info: unknown) => {
-  const { yellow,white } = chalk;
   console.log(yellow(getTimeText()), white(transform(info)));
 };
 
 const debug = (info: unknown) => {
-  const { blue,white } = chalk;
   console.log(blue(getTimeText()), white(transform(info)));
 };
 export class Logger {

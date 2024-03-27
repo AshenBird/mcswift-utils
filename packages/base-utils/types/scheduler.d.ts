@@ -16,7 +16,7 @@ export declare class Scheduler {
     private wait;
     static wait: (time: number) => Promise<void>;
 }
-export type Task<T extends unknown> = () => Promise<T>;
+export type Task<T> = () => Promise<T>;
 export type TaskRecord<T> = {
     action: () => Promise<unknown>;
     resolve: (value: T) => void;

@@ -1,6 +1,7 @@
 // packages/base-utils/src/logger.ts
-import chalk from "chalk";
-import { toJsonString } from "./index.mjs";
+import { Chalk } from "chalk";
+import { toJsonString } from "./json.mjs";
+var { red, white, green, yellow, blue, gray } = new Chalk();
 var getTimeText = () => {
   const date = /* @__PURE__ */ new Date();
   const timeString = date.toLocaleTimeString();
@@ -16,23 +17,18 @@ var transform = (val) => {
   return val;
 };
 var log = (info2) => {
-  const { white, green } = chalk;
   console.log(green(getTimeText()), white(transform(info2)));
 };
 var info = (info2) => {
-  const { gray, white } = chalk;
   console.log(gray(getTimeText()), white(transform(info2)));
 };
 var error = (info2) => {
-  const { red, white } = chalk;
   console.log(red(getTimeText()), white(transform(info2)));
 };
 var warn = (info2) => {
-  const { yellow, white } = chalk;
   console.log(yellow(getTimeText()), white(transform(info2)));
 };
 var debug = (info2) => {
-  const { blue, white } = chalk;
   console.log(blue(getTimeText()), white(transform(info2)));
 };
 var Logger = class {

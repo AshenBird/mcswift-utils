@@ -79,5 +79,5 @@ export const build = async (name: string) => {
     tasks.push(rm(buildInfoPath));
   }
   await Promise.all(tasks);
-  Logger.log(`${name} BUILD FINISH`);
+  Logger.log(`@mcswift/${name} BUILD FINISH`);
 };

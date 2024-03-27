@@ -24,7 +24,7 @@ __export(src_exports, {
 });
 module.exports = __toCommonJS(src_exports);
 var import_node = require("@mcswift/node");
-var import_fs_extra = require("fs-extra");
+var import_esm = require("fs-extra/esm");
 var NpmPackage = class _NpmPackage {
   root;
   constructor(root) {
@@ -57,14 +57,14 @@ var NpmPackage = class _NpmPackage {
   }
   static getPackageInfo = (root = "./") => {
     const p = (0, import_node.getAbsolutePath)(root);
-    const result = (0, import_fs_extra.readJSONSync)(`${p}/package.json`);
+    const result = (0, import_esm.readJSONSync)(`${p}/package.json`);
     return result;
   };
   static setPackageInfo = (key, value, root = "./") => {
     const p = (0, import_node.getAbsolutePath)(root);
     const content = this.getPackageInfo(root);
     content[key] = value;
-    const result = (0, import_fs_extra.writeJSONSync)(`${p}/package.json`, content, {
+    const result = (0, import_esm.writeJSONSync)(`${p}/package.json`, content, {
       spaces: 2,
       EOL: "\n"
     });

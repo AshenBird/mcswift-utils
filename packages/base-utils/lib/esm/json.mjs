@@ -11,7 +11,7 @@ var jsonTryParse = (val, errorResult = void 0, reviver) => {
 function toJsonString(val, errorResult = void 0, replacer = void 0, space) {
   try {
     return JSON.stringify(val, replacer || void 0, space || 2);
-  } catch (e) {
+  } catch (_e) {
     Logger.error("JSON \u5316\u8F93\u51FA\u5931\u8D25");
     return errorResult;
   }

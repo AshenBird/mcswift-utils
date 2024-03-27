@@ -48,9 +48,9 @@ var Scheduler = class {
     const taskRecord = {
       action: () => new Promise(() => {
       }),
-      resolve: (value) => {
+      resolve: (_value) => {
       },
-      reject: (err) => {
+      reject: (_err) => {
       }
     };
     const result = new Promise((resolve, reject) => {

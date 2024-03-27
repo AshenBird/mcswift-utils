@@ -1,8 +1,7 @@
 import { getAbsolutePath } from "@mcswift/node";
 
 import type { NPM } from "@mcswift/types";
-import { readJSONSync, writeJSONSync } from "fs-extra";
-// import NPMPackageJson from "@npmcli/package-json"
+import { readJSONSync, writeJSONSync } from "fs-extra/esm";
 export class NpmPackage  {
   root: string;
   constructor(root: string) {

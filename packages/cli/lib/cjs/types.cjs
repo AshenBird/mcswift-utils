@@ -11,18 +11,12 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// packages/cli/src/index.ts
-var src_exports = {};
-module.exports = __toCommonJS(src_exports);
-__reExport(src_exports, require("./Cli.cjs"), module.exports);
-__reExport(src_exports, require("./Command.cjs"), module.exports);
-__reExport(src_exports, require("./utils.cjs"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./Cli.cjs"),
-  ...require("./Command.cjs"),
-  ...require("./utils.cjs")
-});
+// packages/cli/src/types.ts
+var types_exports = {};
+module.exports = __toCommonJS(types_exports);
+var import_zod = require("zod");
+var _OptionsSchema = import_zod.z.object(
+  {}
+);

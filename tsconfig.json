@@ -3,7 +3,6 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "ignoreDeprecations": "5.0",
     "isolatedModules": true,
     "composite": true,
     "outDir": "./lib",
