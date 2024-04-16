@@ -12,11 +12,13 @@ cli.use("build", async (options) => {
   if (pack) return build(pack as string);
   return bat(build);
 });
+
 cli.use("doctor",async (options) => {
   const { pack } = options;
   if (pack) return check(pack as string);
   return bat(check);
 });
+
 cli.use("lint", async (options) => {
   const { pack } = options;
   if (pack) {

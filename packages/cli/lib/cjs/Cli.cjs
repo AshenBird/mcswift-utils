@@ -33,27 +33,28 @@ var Cli = class {
   name;
   constructor(name = "") {
     this.name = name;
-    this._use(HELP, this.help.bind(this));
-    this._use(README, this.readme.bind(this));
   }
   map = /* @__PURE__ */ new Map();
-  _use(arg1, arg2, arg3) {
-    const command = arg1 instanceof import_Command.Command ? arg1 : new import_Command.Command({
-      name: arg1,
-      handle: arg2,
-      schema: arg3
-    });
-    this.map.set(command.name, command);
-  }
-  use(arg1, arg2, arg3) {
+  use(arg1, arg2) {
     if (typeof arg1 === "string") {
-      return this._use(arg1, arg2, arg3);
+      if (!arg2)
+        throw null;
+      this.map.set(arg1, arg2);
+      return this;
     }
-    return this._use(arg1);
+    if (arg1 instanceof import_Command.Command) {
+      this.map.set(arg1.name, arg1);
+      return this;
+    }
+    const command = new import_Command.Command(arg1);
+    this.map.set(command.name, command);
+    return this;
   }
   help() {
   }
   readme() {
+  }
+  banner() {
   }
   async run(name, options = {}) {
     if (!Array.isArray(name))
@@ -66,21 +67,25 @@ var Cli = class {
   async _run(name, options = {}) {
     const command = this.map.get(name);
     if (!command) {
+      if (command === "help")
+        return this.help();
+      if (command === "readme")
+        return this.readme();
       import_base_utils.Logger.warn(`Can't found ${name} command. Please check you input.`);
       return this;
     }
     let _options = options;
-    if (command.schema) {
-      const result = command.schema.safeParse(options);
-      if (!result.success) {
-        for (const [field, errs] of Object.entries(result.error.formErrors.fieldErrors)) {
-          import_base_utils.Logger.error(`${field}: ${errs?.join("\n           ")}`);
-        }
+    if (command instanceof import_Command.Command && command.schema) {
+      const result = command.schema.parse(options);
+      if (!result.status) {
         return;
       }
       _options = result.data;
     }
-    await command.handle(_options, this);
+    if (command instanceof import_Command.Command)
+      await command.handle(_options, this);
+    else
+      await command(_options, this);
     return this;
   }
   start() {

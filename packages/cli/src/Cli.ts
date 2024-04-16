@@ -2,7 +2,7 @@ import { Logger } from "@mcswift/base-utils";
 import { argv } from "process";
 import { resolveCliOption } from ".";
 import { Command } from "./Command";
-import { COS, CH, CO } from "./types";
+import type{ Handle, Options,Schema, CommandInit } from "./types";
 const HELP = Symbol("help");
 const README = Symbol("readme");
 
@@ -10,92 +10,90 @@ export class Cli {
   readonly name: string;
   constructor(name: string = "") {
     this.name = name;
-    this._use(HELP, this.help.bind(this));
-    this._use(README, this.readme.bind(this));
+    // this._use(HELP, this.help.bind(this));
+    // this._use(README, this.readme.bind(this));
   }
-  private map = new Map<string | symbol, Command>();
+  private map = new Map<string | symbol, Command|Handle>();
 
-  /*--- inner use ----*/
   /**
    *
    * @param name
    * @param handle
    * @param schema
    */
-  private _use<T extends COS = COS>(
-    name: string | symbol,
-    handle: CH<T>,
-    schema?: T
-  ): void;
+  use<T extends Schema = Schema>(
+    init:CommandInit<T>
+  ): this;
   /**
-   *
    * @param command
    */
-  private _use<T extends COS = COS>(command: Command<T>): void;
-  private _use<T extends COS = COS>(
-    arg1: string | symbol | Command<T>,
-    arg2?: CH<T>,
-    arg3?: T
+  use<T extends Schema = Schema>(
+    command: Command<T>
+  ): this;
+  
+  use(
+    name: string,
+    handle:Handle
+  ): this;
+  use<T extends Schema = Schema>(
+    arg1:CommandInit<T>|Command<T>|string,
+    arg2?:Handle
   ) {
-    const command =
-      arg1 instanceof Command
-        ? arg1
-        : new Command({
-            name: arg1,
-            handle: arg2 as CH<T>,
-            schema: arg3,
-          });
-
-    this.map.set(command.name, command as unknown as Command);
-  }
-
-  /**
-   *
-   * @param name
-   * @param handle
-   * @param schema
-   */
-  use<T extends COS = COS>(name: string, handle: CH<T>, schema?: T): void;
-  /**
-   *
-   * @param command
-   */
-  use<T extends COS = COS>(command: Command<T>): void;
-  use<T extends COS = COS>(arg1: string | Command<T>, arg2?: CH<T>, arg3?: T) {
-    if (typeof arg1 === "string") {
-      return this._use(arg1, arg2 as CH<T>, arg3);
+    if(typeof arg1 === "string"){
+      if(!arg2) throw null as never
+      this.map.set(arg1,arg2)
+      return this
     }
-    return this._use(arg1);
+    if(arg1 instanceof Command){
+      this.map.set(arg1.name, arg1 as unknown as Command);
+      return this
+    }
+    const  command = new Command<T>(arg1)
+    this.map.set(command.name, command as unknown as Command);
+    return this
   }
-  help() {}
-  readme() {}
-  async run(name: string | string[], options: CO = {}) {
+
+  help() {
+    // @todo 输出 命令列表
+  }
+  readme() {
+    // @todo 输出 自述文件
+  }
+  banner() {}
+  async run(name: string | string[], options: Options = {}) {
     if (!Array.isArray(name)) return this._run(name, options);
     for (const n of name) {
       await this._run(n, options);
     }
     return this;
   }
-  async _run(name: string, options: CO = {}) {
+  private async _run(name: string, options: Options = {}) {
     const command = this.map.get(name);
     if (!command) {
+      if( command === "help" )return this.help();
+      if( command === "readme" )return this.readme();
       Logger.warn(`Can't found ${name} command. Please check you input.`);
       return this;
     }
     let _options = options;
     // 校验
-    if (command.schema) {
-        const result = command.schema.safeParse(options);
-        if(!result.success){
-          for (const [field,errs ]of Object.entries(result.error.formErrors.fieldErrors)){
-            Logger.error(`${field}: ${errs?.join("\n           ")}`)
-          }
-          return 
-        }
-        _options = result.data
+    if (command instanceof Command && command.schema) {
+      const result = command.schema.parse(options);
+      if (!result.status) {
+        // @todo
+        // for (const [field, errs] of Object.entries(
+        //   result.error.formErrors.fieldErrors
+        // )) {
+        //   Logger.error(`${field}: ${errs?.join("\n           ")}`);
+        // }
+        return;
+      }
+      _options = result.data;
     }
+    
     // 执行
-    await command.handle(_options,this);
+    if(command instanceof Command)await command.handle(_options, this);
+    else await command(_options,this)
     return this;
   }
   start() {

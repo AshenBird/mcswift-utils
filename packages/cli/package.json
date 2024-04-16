@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/cli",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -20,15 +20,14 @@
     "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
-    "typescript": "^5.4.3",
-    "zod": "^3.22.0"
-  },
-  "peerDependencies": {
-    "zod": "^3.22.0"
+    "jest": "^29.7.0",
+    "tsx": "^3.12.6",
+    "typescript": "^5.4.3"
   },
   "scripts": {
     "build": "cd ../../ && npm run build -- --pack=\"cli\"",
-    "doctor": "cd ../../ && npm run doctor -- --pack=\"cli\""
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"cli\"",
+    "test": "tsx ./test/index.test.ts"
   },
   "repository": {
     "type": "git",

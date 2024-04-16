@@ -17,24 +17,14 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// packages/cli/src/Command.ts
-var Command_exports = {};
-__export(Command_exports, {
-  Command: () => Command
+// packages/cli/src/options/const.ts
+var const_exports = {};
+__export(const_exports, {
+  TYPE: () => TYPE
 });
-module.exports = __toCommonJS(Command_exports);
-var Command = class {
-  name = "";
-  handle;
-  schema;
-  constructor(options) {
-    const { handle, schema, name } = options;
-    this.handle = handle;
-    this.schema = schema;
-    this.name = name;
-  }
-};
+module.exports = __toCommonJS(const_exports);
+var TYPE = Symbol();
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  Command
+  TYPE
 });
