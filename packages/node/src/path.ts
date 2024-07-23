@@ -19,8 +19,8 @@ export const getCommandFile = (command: string, root = './'):string|undefined =>
   const p = getAbsolutePath(root)
   let filePath = ''
   const dir = join(p, 'node_modules', '.bin')
+  const f = resolve(p,"../")
   if(!existsSync(dir)){
-    const f = resolve(p,"../")
     if(!existsSync)return undefined
     return getCommandFile( command, f )
   }
@@ -39,6 +39,7 @@ export const getCommandFile = (command: string, root = './'):string|undefined =>
     filePath = join(dir, dirent.name)
     break
   }
+  if(!filePath)return getCommandFile( command, f )
   return filePath
 }
 /**
