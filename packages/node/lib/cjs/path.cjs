@@ -39,8 +39,8 @@ var getCommandFile = (command, root = "./") => {
   const p = getAbsolutePath(root);
   let filePath = "";
   const dir = (0, import_node_path.join)(p, "node_modules", ".bin");
+  const f = (0, import_node_path.resolve)(p, "../");
   if (!(0, import_node_fs.existsSync)(dir)) {
-    const f = (0, import_node_path.resolve)(p, "../");
     if (!import_node_fs.existsSync)
       return void 0;
     return getCommandFile(command, f);
@@ -54,6 +54,8 @@ var getCommandFile = (command, root = "./") => {
     filePath = (0, import_node_path.join)(dir, dirent.name);
     break;
   }
+  if (!filePath)
+    return getCommandFile(command, f);
   return filePath;
 };
 var getFilePaths = (path, exclude = []) => {

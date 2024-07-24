@@ -12,8 +12,8 @@ var getCommandFile = (command, root = "./") => {
   const p = getAbsolutePath(root);
   let filePath = "";
   const dir = join(p, "node_modules", ".bin");
+  const f = resolve(p, "../");
   if (!existsSync(dir)) {
-    const f = resolve(p, "../");
     if (!existsSync)
       return void 0;
     return getCommandFile(command, f);
@@ -27,6 +27,8 @@ var getCommandFile = (command, root = "./") => {
     filePath = join(dir, dirent.name);
     break;
   }
+  if (!filePath)
+    return getCommandFile(command, f);
   return filePath;
 };
 var getFilePaths = (path, exclude = []) => {
