@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/esbuild",
-  "version": "1.0.9",
+  "version": "1.0.7",
   "description": "",
   "type": "module",
   "main": "lib/cjs/index.cjs",
@@ -10,6 +10,13 @@
     "lib/**/*",
     "types/**/*"
   ],
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./types/index.d.ts"
+    }
+  },
   "keywords": [],
   "author": {
     "email": "hi@mcswift.cn",
