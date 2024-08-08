@@ -45,7 +45,7 @@ var Logger = class {
   }
   levelFac(level, color) {
     return (...args) => console.log(
-      color(`${getTimeText()}|${level}|${this.channel}]`),
+      color(`[${getTimeText()}|${level}|${this.channel}]`),
       ...args.map((info2) => white(transform(info2)))
     );
   }
