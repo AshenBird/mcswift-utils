@@ -46,7 +46,7 @@ export class Logger {
   private levelFac(level: string, color: ChalkInstance) {
     return (...args: unknown[]) =>
       console.log(
-        color(`${getTimeText()}|${level}|${this.channel}]`),
+        color(`[${getTimeText()}|${level}|${this.channel}]`),
         ...args.map((info) => white(transform(info)))
       );
   }
