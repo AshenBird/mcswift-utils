@@ -1,6 +1,6 @@
 export * as GBK from "./gbk"
 export * from "./pinyin-sort"
-export * from "./csv"
+// export * from "./csv"
 export * from "./json"
 export * from "./logger"
 export * from "./object"

@@ -36,7 +36,6 @@ __export(src_exports, {
 module.exports = __toCommonJS(src_exports);
 var GBK = __toESM(require("./gbk/index.cjs"), 1);
 __reExport(src_exports, require("./pinyin-sort/index.cjs"), module.exports);
-__reExport(src_exports, require("./csv.cjs"), module.exports);
 __reExport(src_exports, require("./json.cjs"), module.exports);
 __reExport(src_exports, require("./logger.cjs"), module.exports);
 __reExport(src_exports, require("./object.cjs"), module.exports);
@@ -49,7 +48,6 @@ __reExport(src_exports, require("./type.cjs"), module.exports);
 0 && (module.exports = {
   GBK,
   ...require("./pinyin-sort/index.cjs"),
-  ...require("./csv.cjs"),
   ...require("./json.cjs"),
   ...require("./logger.cjs"),
   ...require("./object.cjs"),
