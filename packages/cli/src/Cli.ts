@@ -3,8 +3,8 @@ import { argv } from "process";
 import { resolveCliOption } from ".";
 import { Command } from "./Command";
 import type{ Handle, Options,Schema, CommandInit } from "./types";
-const HELP = Symbol("help");
-const README = Symbol("readme");
+// const HELP = Symbol("help");
+// const README = Symbol("readme");
 
 export class Cli {
   readonly name: string;
