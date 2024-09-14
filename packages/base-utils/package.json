@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/base-utils",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "",
   "type": "module",
   "main": "lib/esm/index.mjs",
@@ -43,7 +43,6 @@
     "zod": "^3.22.0"
   },
   "dependencies": {
-    "@json2csv/whatwg": "^7.0.6",
     "@mcswift/bellman": "^0.0.7",
     "@mcswift/types": "workspace:^",
     "chalk": "^5.3.0",

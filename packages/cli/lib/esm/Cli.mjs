@@ -3,8 +3,6 @@ import { Logger } from "@mcswift/base-utils";
 import { argv } from "process";
 import { resolveCliOption } from "./index.mjs";
 import { Command } from "./Command.mjs";
-var HELP = Symbol("help");
-var README = Symbol("readme");
 var Cli = class {
   name;
   constructor(name = "") {

@@ -27,8 +27,6 @@ var import_base_utils = require("@mcswift/base-utils");
 var import_process = require("process");
 var import__ = require("./index.cjs");
 var import_Command = require("./Command.cjs");
-var HELP = Symbol("help");
-var README = Symbol("readme");
 var Cli = class {
   name;
   constructor(name = "") {
