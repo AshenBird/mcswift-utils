@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/base-utils",
-  "version": "1.0.13",
+  "version": "1.0.12",
   "description": "",
   "type": "module",
   "main": "lib/esm/index.mjs",
@@ -20,7 +20,6 @@
       "require": "./lib/cjs/index.cjs",
       "types": "./types/index.d.ts"
     },
-    
     "./logger": {
       "import": "./lib/esm/logger.mjs",
       "require": "./lib/cjs/logger.cjs",
