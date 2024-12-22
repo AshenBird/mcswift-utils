@@ -1,0 +1,48 @@
+{
+  "name": "@mcswift/safe-await",
+  "version": "1.0.15",
+  "description": "",
+  "type": "module",
+  "main": "lib/esm/index.mjs",
+  "module": "lib/esm/index.mjs",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "types/**/*"
+  ],
+  "scripts": {
+    "demo":"tsx ./demo/index.ts",
+    "build": "cd ../../ && npm run build -- --pack=\"safe-await\"",
+    "doctor": "cd ../../ && npm run doctor -- --pack=\"safe-await\""
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./types/index.d.ts"
+    },
+    "./logger": {
+      "import": "./lib/esm/logger.mjs",
+      "require": "./lib/cjs/logger.cjs",
+      "types": "./types/logger.d.ts"
+    }
+  },
+  "keywords": [],
+  "author": {
+    "email": "hi@mcswift.cn",
+    "name": "McSwift"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@mcswift/types": "workspace:^",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "esbuild": "^0.20.1",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/packages/tree/main/packages/base-utils"
+  }
+}

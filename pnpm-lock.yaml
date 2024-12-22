@@ -74,9 +74,6 @@ importers:
 
   packages/base-utils:
     dependencies:
-      '@json2csv/whatwg':
-        specifier: ^7.0.6
-        version: 7.0.6
       '@mcswift/bellman':
         specifier: ^0.0.7
         version: 0.0.7
@@ -199,9 +196,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      npm:
-        specifier: ^10.5.0
-        version: 10.5.0
       pnpm:
         specifier: ^8.15.5
         version: 8.15.5
@@ -209,9 +203,6 @@ importers:
       '@types/node':
         specifier: ^20.11.30
         version: 20.11.30
-      '@types/npm':
-        specifier: ^7.19.3
-        version: 7.19.3
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.4.0
         version: 7.4.0(@typescript-eslint/parser@7.4.0)(eslint@8.57.0)(typescript@5.4.3)
@@ -220,6 +211,27 @@ importers:
         version: 7.4.0(eslint@8.57.0)(typescript@5.4.3)
       typescript:
         specifier: ^5.4.3
+        version: 5.4.3
+
+  packages/safe-await:
+    devDependencies:
+      '@mcswift/types':
+        specifier: workspace:^
+        version: link:../types
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.4.0
+        version: 7.4.0(@typescript-eslint/parser@7.4.0)(eslint@8.57.0)(typescript@5.4.3)
+      '@typescript-eslint/parser':
+        specifier: ^7.4.0
+        version: 7.4.0(eslint@8.57.0)(typescript@5.4.3)
+      esbuild:
+        specifier: ^0.20.1
+        version: 0.20.2
+      tsx:
+        specifier: ^3.12.6
+        version: 3.14.0
+      typescript:
+        specifier: ^5.0.4
         version: 5.4.3
 
   packages/svn:
@@ -1438,17 +1450,20 @@ packages:
 
   /@json2csv/formatters@7.0.6:
     resolution: {integrity: sha512-hjIk1H1TR4ydU5ntIENEPgoMGW+Q7mJ+537sDFDbsk+Y3EPl2i4NfFVjw0NJRgT+ihm8X30M67mA8AS6jPidSA==}
+    dev: true
 
   /@json2csv/plainjs@7.0.6:
     resolution: {integrity: sha512-4Md7RPDCSYpmW1HWIpWBOqCd4vWfIqm53S3e/uzQ62iGi7L3r34fK/8nhOMEe+/eVfCx8+gdSCt1d74SlacQHw==}
     dependencies:
       '@json2csv/formatters': 7.0.6
       '@streamparser/json': 0.0.20
+    dev: true
 
   /@json2csv/whatwg@7.0.6:
     resolution: {integrity: sha512-//7ROL1C4G0yYM45n4z1WkVlLSv/qss+huzdQ+3OEaRxuQE34A3tm/K52caOQ70P/M1kSeiV1DHwtqCJdOE7lA==}
     dependencies:
       '@json2csv/plainjs': 7.0.6
+    dev: true
 
   /@mcswift/base-utils@1.0.7:
     resolution: {integrity: sha512-RyepQejjxyK6LOiMJ7qpzaw6fUPCKIMXwZjvL4j/P0SPhP+iYYmzANzfOWofrPX/1FzgAbg4fgCgbswDgC2cYA==}
@@ -1531,6 +1546,7 @@ packages:
 
   /@streamparser/json@0.0.20:
     resolution: {integrity: sha512-VqAAkydywPpkw63WQhPVKCD3SdwXuihCUVZbbiY3SfSTGQyHmwRoq27y4dmJdZuJwd5JIlQoMPyGvMbUPY0RKQ==}
+    dev: true
 
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1621,12 +1637,6 @@ packages:
     resolution: {integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==}
     dependencies:
       undici-types: 5.26.5
-    dev: true
-
-  /@types/npm@7.19.3:
-    resolution: {integrity: sha512-1fiJlMN0iDs42kFJZJX88SVUppp5zNQik0JVnI3mw28+vssBAz3TAvmhrPpupj1rBESV6bGYjEny30fu4Kst9g==}
-    dependencies:
-      '@types/node': 20.11.30
     dev: true
 
   /@types/semver@7.5.8:
@@ -3383,83 +3393,6 @@ packages:
     dependencies:
       path-key: 3.1.1
     dev: true
-
-  /npm@10.5.0:
-    resolution: {integrity: sha512-Ejxwvfh9YnWVU2yA5FzoYLTW52vxHCz+MHrOFg9Cc8IFgF/6f5AGPAvb5WTay5DIUP1NIfN3VBZ0cLlGO0Ys+A==}
-    engines: {node: ^18.17.0 || >=20.5.0}
-    hasBin: true
-    dev: false
-    bundledDependencies:
-      - '@isaacs/string-locale-compare'
-      - '@npmcli/arborist'
-      - '@npmcli/config'
-      - '@npmcli/fs'
-      - '@npmcli/map-workspaces'
-      - '@npmcli/package-json'
-      - '@npmcli/promise-spawn'
-      - '@npmcli/run-script'
-      - '@sigstore/tuf'
-      - abbrev
-      - archy
-      - cacache
-      - chalk
-      - ci-info
-      - cli-columns
-      - cli-table3
-      - columnify
-      - fastest-levenshtein
-      - fs-minipass
-      - glob
-      - graceful-fs
-      - hosted-git-info
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-even-better-errors
-      - libnpmaccess
-      - libnpmdiff
-      - libnpmexec
-      - libnpmfund
-      - libnpmhook
-      - libnpmorg
-      - libnpmpack
-      - libnpmpublish
-      - libnpmsearch
-      - libnpmteam
-      - libnpmversion
-      - make-fetch-happen
-      - minimatch
-      - minipass
-      - minipass-pipeline
-      - ms
-      - node-gyp
-      - nopt
-      - normalize-package-data
-      - npm-audit-report
-      - npm-install-checks
-      - npm-package-arg
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - npmlog
-      - p-map
-      - pacote
-      - parse-conflict-json
-      - proc-log
-      - qrcode-terminal
-      - read
-      - semver
-      - spdx-expression-parse
-      - ssri
-      - supports-color
-      - tar
-      - text-table
-      - tiny-relative-date
-      - treeverse
-      - validate-npm-package-name
-      - which
-      - write-file-atomic
 
   /nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
