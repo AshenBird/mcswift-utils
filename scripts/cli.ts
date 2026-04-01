@@ -41,11 +41,15 @@ cli.use("lint", async (options) => {
 cli.use("prepublish", async () => {
   await cli.run(["build", "lint"]);
 });
-cli.use("publish", async (options) => {
-  const { pack } = options;
-  if (pack) return publish(pack as string);
-  return bat(publish, true);
-});
+cli.use(
+  "publish",
+  publish,
+  // async (options) => {
+  //   const { pack } = options;
+  //   if (pack) return publish(pack as string);
+  //   return bat(publish, true);
+  // }
+);
 cli.use("clear", async (options) => {
   const { pack } = options;
   if (pack) return clear(pack as string);

@@ -23,10 +23,6 @@
     ".": {
       "import": "./lib/esm/index.mjs",
       "require": "./lib/cjs/index.cjs"
-    },
-    "./logger": {
-      "import": "./lib/esm/logger.mjs",
-      "require": "./lib/cjs/logger.cjs"
     }
   },
   "devDependencies": {

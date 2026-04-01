@@ -5,7 +5,6 @@ const require_logger = require("./logger.cjs");
 const require_json = require("./json.cjs");
 const require_object = require("./object.cjs");
 const require_other = require("./other.cjs");
-const require_scheduler = require("./scheduler.cjs");
 const require_string = require("./string.cjs");
 const require_trigger = require("./trigger.cjs");
 const require_type = require("./type.cjs");
@@ -18,7 +17,6 @@ Object.defineProperty(exports, "GBK", {
 exports.HumanFriendlyJSON = require_json.HumanFriendlyJSON;
 exports.Logger = require_logger.Logger;
 exports.Pinyin = require_pinyin_sort_index.Pinyin;
-exports.Scheduler = require_scheduler.Scheduler;
 exports.Trigger = require_trigger.Trigger;
 exports.deepFreeze = require_object.deepFreeze;
 exports.deepSeal = require_object.deepSeal;
