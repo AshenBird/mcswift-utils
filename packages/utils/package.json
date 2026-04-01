@@ -1,59 +1,45 @@
 {
   "name": "@mcswift/utils",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": {
+    "name": "McSwift",
+    "email": "hi@mcswift.cn"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/mcswift-utils/tree/main/packages/utils"
+  },
+  "files": [
+    "lib/**/*"
+  ],
   "type": "module",
   "main": "lib/cjs/index.cjs",
   "module": "lib/esm/index.mjs",
   "types": "types/index.d.ts",
-  "files": [
-    "lib/**/*",
-    "types/**/*"
-  ],
   "exports": {
-    ".": {
-      "import": "./lib/esm/index.mjs",
-      "require": "./lib/cjs/index.cjs",
-      "types": "./types/index.d.ts"
-    },
     "./common": {
       "import": "./lib/esm/common.mjs",
-      "require": "./lib/cjs/common.cjs",
-      "types": "./types/common.d.ts"
+      "require": "./lib/cjs/common.cjs"
     },
     "./node": {
       "import": "./lib/esm/node.mjs",
-      "require": "./lib/cjs/node.cjs",
-      "types": "./types/node.d.ts"
+      "require": "./lib/cjs/node.cjs"
     },
     "./windows": {
       "import": "./lib/esm/windows.mjs",
-      "require": "./lib/cjs/windows.cjs",
-      "types": "./types/windows.d.ts"
+      "require": "./lib/cjs/windows.cjs"
     },
     "./child_process": {
       "import": "./lib/esm/child_process.mjs",
-      "require": "./lib/cjs/child_process.cjs",
-      "types": "./types/child_process.d.ts"
+      "require": "./lib/cjs/child_process.cjs"
     },
     "./cli": {
       "import": "./lib/esm/cli.mjs",
-      "require": "./lib/cjs/cli.cjs",
-      "types": "./types/cli.d.ts"
+      "require": "./lib/cjs/cli.cjs"
     }
-  },
-  "keywords": [],
-  "author": {
-    "email": "hi@mcswift.cn",
-    "name": "McSwift"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
-    "tsx": "^3.12.6",
-    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@mcswift/base-utils": "workspace:^",
@@ -64,15 +50,10 @@
     "@mcswift/svn": "workspace:^",
     "@mcswift/tsc": "workspace:^",
     "@mcswift/types": "workspace:^",
-    "@mcswift/windows": "workspace:^",
-    "eslint": "^8.57.0"
+    "@mcswift/windows": "workspace:^"
   },
-  "scripts": {
-    "build": "cd ../../ && npm run build -- --pack=\"utils\"",
-    "doctor": "cd ../../ && npm run doctor -- --pack=\"utils\""
-  },
-  "repository": {
-    "type": "git",
-    "directory": "https://github.com/AshenBird/packages/tree/main/packages/utils"
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }

@@ -1,28 +1,8 @@
-"use strict";
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// packages/cli/src/index.ts
-var src_exports = {};
-module.exports = __toCommonJS(src_exports);
-__reExport(src_exports, require("./Cli.cjs"), module.exports);
-__reExport(src_exports, require("./Command.cjs"), module.exports);
-__reExport(src_exports, require("./utils.cjs"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./Cli.cjs"),
-  ...require("./Command.cjs"),
-  ...require("./utils.cjs")
-});
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const require_Command = require("./Command.cjs");
+const require_utils = require("./utils.cjs");
+const require_Cli = require("./Cli.cjs");
+exports.Cli = require_Cli.Cli;
+exports.Command = require_Command.Command;
+exports.optionHandle = require_utils.optionHandle;
+exports.resolveCliOption = require_utils.resolveCliOption;

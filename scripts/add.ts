@@ -2,27 +2,31 @@ import { z } from "zod";
 import { Cli, Command } from "@mcswift/cli";
 import { ensureDirSync } from "fs-extra";
 import { getPackageDir } from "./utils";
-import { existsSync } from "fs";
+import { existsSync } from "node:fs";
 import { join } from "path";
 import { execSync } from "child_process";
 const schema = z.object({
   name: z.string().describe("create package and dir as this name"),
 });
+
 type AddOptions = z.infer<typeof schema>;
-const add = ({ name }: AddOptions,cli:Cli) => {
-  const root = getPackageDir(name)
+const add = ({ name }: AddOptions, cli: Cli) => {
+  const root = getPackageDir(name);
   ensureDirSync(root);
-  if(existsSync(join(root,"package.json"))){
-    return
+  if (existsSync(join(root, "package.json"))) {
+    return;
   }
-  execSync("pnpm init",{
-    cwd:root
-  })
-  cli.run("doctor")
+  execSync("pnpm init", {
+    cwd: root,
+  });
+  cli.run("doctor").catch(() => {});
 };
 
 export const addCommand = new Command({
   name: "add",
   handle: add,
-  schema,
+  schema: {
+    getType: (name: keyof AddOptions) => schema.shape[name].type,
+    parse: schema.parse.bind(schema),
+  },
 });

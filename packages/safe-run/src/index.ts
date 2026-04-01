@@ -6,68 +6,82 @@
  * @returns 返回一个元组，索引 0 为捕捉到的异常，索引 1 为正常的结果
  */
 export const safeAwait = async <Result = unknown>(
-  promise: Promise<Result>
+  promise: Promise<Result>,
 ): Promise<SafeResult<Result>> => {
+  let error: unknown = null;
   try {
-    const result = await promise
-    return [
-      null,
-      result
-    ]
-  } catch (error) {
-    if(error===null){
-      error = new Error()  
-    }
-    return [
-      error,
-      null as Result
-    ]
-  }
-}
-
-export function safeApply<Args extends any[] = any[], Result extends unknown = unknown>(
-  func: (...args: Args) => Result,
-  params: Args): SafeResult<Result>
-export function safeApply<Args extends any[] = any[], Result extends unknown = unknown>(
-  func: (...args: Args) => Promise<Result>,
-  params: Args
-): Promise<SafeResult<Result>>
-export function safeApply<Args extends any[] = any[], Result extends unknown = unknown>(
-  func: (...args: Args) => Result | Promise<Result>,
-  params: Args
-): SafeResult<Result> | Promise<SafeResult<Result>> {
-  try {
-    const result = func(...params)
-    if (result instanceof Promise) {
-      return safeAwait(result)
-    }
-    return [null, result]
+    const result = await promise;
+    return [null, result];
   } catch (e) {
-    if(e===null){
-      e = new Error()  
+    if (e === null) {
+      error = new Error();
+    } else {
+      error = e;
     }
-    return [e, null as Result]
+    return [error as Exclude<any, null>, null as Result];
+  }
+};
+
+export function safeApply<
+  Args extends any[] = any[],
+  Result extends unknown = unknown,
+>(func: (...args: Args) => Result, params: Args): SafeResult<Result>;
+export function safeApply<
+  Args extends any[] = any[],
+  Result extends unknown = unknown,
+>(
+  func: (...args: Args) => Promise<Result>,
+  params: Args,
+): Promise<SafeResult<Result>>;
+export function safeApply<
+  Result extends unknown = unknown,
+  Args extends any[] = any[],
+>(
+  func: (...args: Args) => Result | Promise<Result>,
+  params: Args,
+): SafeResult<Result> | Promise<SafeResult<Result>> {
+  let error: unknown = null;
+  try {
+    const result = func(...params);
+    if (result instanceof Promise) {
+      return safeAwait(result);
+    }
+    return [null, result];
+  } catch (e: any) {
+    if (e === null) {
+      error = new Error();
+    } else {
+      error = e;
+    }
+    return [error as Exclude<unknown, null>, null];
   }
 }
 
-export function safeCall<Args extends any[] = any[], Result extends unknown = unknown>(
-  func: (...args: Args) => Result,
-  ...params: Args): SafeResult<Result>
-export function safeCall<Args extends any[] = any[], Result extends unknown = unknown>(
+export function safeCall<
+  Args extends any[] = any[],
+  Result extends unknown = unknown,
+>(func: (...args: Args) => Result, ...params: Args): SafeResult<Result>;
+export function safeCall<
+  Args extends any[] = any[],
+  Result extends unknown = unknown,
+>(
   func: (...args: Args) => Promise<Result>,
   ...params: Args
-): Promise<SafeResult<Result>>
-export function safeCall<Args extends any[] = any[], Result extends unknown = unknown>(
+): Promise<SafeResult<Result>>;
+export function safeCall<
+  Args extends any[] = any[],
+  Result extends unknown = unknown,
+>(
   func: (...args: Args) => Result | Promise<Result>,
   ...params: Args
 ): SafeResult<Result> | Promise<SafeResult<Result>> {
-  return safeApply(func, params) as typeof func extends (...args: Args) => Promise<Result> ? Promise<SafeResult<Result>> : SafeResult<Result>
+  return safeApply(func, params) as typeof func extends (
+    ...args: Args
+  ) => Promise<Result>
+    ? Promise<SafeResult<Result>>
+    : SafeResult<Result>;
 }
 
-export type SafeResult<Result> = [
-  error: null,
-  result: Result
-] | [
-  error: Exclude<any, null>,
-  result: Result
-]
+export type SafeResult<Result> =
+  | [error: null, result: Result]
+  | [error: Exclude<unknown, null>, result: null];

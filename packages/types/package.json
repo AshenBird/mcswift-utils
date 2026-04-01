@@ -1,42 +1,36 @@
 {
   "name": "@mcswift/types",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "",
-  "types": "./lib/index.d.ts",
-  "type": "module",
-  "main": "",
-  "exports": {
-    "types": "./lib/index.d.ts"
+  "keywords": [
+    "json",
+    "types",
+    "typescript",
+    "util"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "McSwift",
+    "email": "hi@mcswift.cn"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/mcswift-utils/tree/main/packages/types"
   },
   "files": [
     "lib/**/*"
   ],
-  "keywords": [
-    "typescript",
-    "types",
-    "util",
-    "json"
-  ],
-  "author": {
-    "email": "hi@mcswift.cn",
-    "name": "McSwift"
+  "type": "module",
+  "main": "",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs"
+    }
   },
-  "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.11.24",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
-    "typescript": "^5.3.3"
-  },
-  "scripts": {
-    "build": "cd ../../ && npm run build -- --pack=\"types\"",
-    "doctor": "cd ../../ && npm run doctor -- --pack=\"types\""
-  },
-  "repository": {
-    "type": "git",
-    "directory": "https://github.com/AshenBird/packages/tree/main/packages/types"
-  },
-  "dependencies": {
-    "eslint": "^8.57.0"
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }

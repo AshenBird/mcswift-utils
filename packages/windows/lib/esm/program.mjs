@@ -1,29 +1,23 @@
-// packages/windows/src/program.ts
-import { getInstalledAppCommand as command } from "./commands.mjs";
+import { getInstalledAppCommand } from "./commands.mjs";
 import { Promisify } from "@mcswift/node/child_process";
-var installedAppMap = /* @__PURE__ */ new Map();
-var getInstalledApp = async () => {
-  installedAppMap.clear();
-  const stdout = await Promisify.exec(command, {
-    shell: "powershell"
-  });
-  const raw = JSON.parse(stdout);
-  raw.forEach(infoHandle);
-  return installedAppMap;
+//#region packages/windows/src/program.ts
+const installedAppMap = /* @__PURE__ */ new Map();
+const getInstalledApp = async () => {
+	installedAppMap.clear();
+	const stdout = await Promisify.exec(getInstalledAppCommand, { shell: "powershell" });
+	JSON.parse(stdout).forEach(infoHandle);
+	return installedAppMap;
 };
-var infoHandle = (item) => {
-  const names = item.PSChildName.split(".");
-  const extension = names.pop();
-  const name = names.join(".");
-  if (installedAppMap.has(name))
-    throw new Error(`\u540C\u540D\u5E94\u7528:${name}`);
-  installedAppMap.set(name, {
-    path: item["(default)"],
-    name,
-    extension
-  });
+const infoHandle = (item) => {
+	const names = item.PSChildName.split(".");
+	const extension = names.pop();
+	const name = names.join(".");
+	if (installedAppMap.has(name)) throw new Error(`同名应用:${name}`);
+	installedAppMap.set(name, {
+		path: item["(default)"],
+		name,
+		extension
+	});
 };
-export {
-  getInstalledApp,
-  installedAppMap
-};
+//#endregion
+export { getInstalledApp, installedAppMap };

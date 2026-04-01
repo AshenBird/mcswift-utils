@@ -1,24 +1,22 @@
-// packages/node/src/util.ts
 import { platform } from "node:os";
-var PlatformEnum = {
-  aix: "posix",
-  android: "posix",
-  darwin: "mac",
-  freebsd: "posix",
-  haiku: "posix",
-  linux: "posix",
-  openbsd: "posix",
-  sunos: "posix",
-  cygwin: "posix",
-  win32: "windows",
-  netbsd: "posix"
+//#region packages/node/src/util.ts
+const PlatformEnum = {
+	aix: "posix",
+	android: "posix",
+	darwin: "mac",
+	freebsd: "posix",
+	haiku: "posix",
+	linux: "posix",
+	openbsd: "posix",
+	sunos: "posix",
+	cygwin: "posix",
+	win32: "windows",
+	netbsd: "posix"
 };
-var pipeCross = (imps) => {
-  const imp = imps[PlatformEnum[platform()]];
-  if (imp)
-    return imp;
-  throw new Error(`${platform()} \u7248\u672C\u672A\u5B9E\u73B0`);
+const pipeCross = (imps) => {
+	const imp = imps[PlatformEnum[platform()]];
+	if (imp) return imp;
+	throw new Error(`${platform()} 版本未实现`);
 };
-export {
-  pipeCross
-};
+//#endregion
+export { pipeCross };

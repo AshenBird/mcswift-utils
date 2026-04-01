@@ -1,2 +1,3 @@
-// packages/utils/src/node.ts
+import "./_virtual/_rolldown/runtime.mjs";
 export * from "@mcswift/node";
+export {};

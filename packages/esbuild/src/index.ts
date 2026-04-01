@@ -11,6 +11,7 @@ import type {
   PluginBuild,
 } from "esbuild";
 import * as Fs from "node:fs";
+import console from "node:console";
 import Path from "node:path";
 
 export interface PluginOptions {
@@ -55,7 +56,7 @@ export interface PluginOptions {
   esmExtension?: string | ((initialOptions: BuildOptions) => Awaitable<string>);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// oxlint-disable-next-line @typescript-eslint/ban-types
 function isFunction(input: unknown): input is Function {
   return typeof input === "function";
 }
@@ -67,7 +68,7 @@ function getFilter(options: PluginOptions): RegExp {
 
   if (Object.prototype.toString.call(options.filter) !== "[object RegExp]") {
     console.warn(
-      `Plugin "esbuild-plugin-file-path-extensions": Options.filter must be a RegExp object, but gets an '${typeof options.filter}' type. \nThis request will match ANY file!`
+      `Plugin "esbuild-plugin-file-path-extensions": Options.filter must be a RegExp object, but gets an '${typeof options.filter}' type. \nThis request will match ANY file!`,
     );
     return /.*/;
   }
@@ -77,7 +78,7 @@ function getFilter(options: PluginOptions): RegExp {
 
 async function getIsEsm(
   build: PluginBuild,
-  options: PluginOptions
+  options: PluginOptions,
 ): Promise<boolean> {
   if (typeof options.esm === "undefined") {
     return build.initialOptions.define?.TSUP_FORMAT === '"esm"';
@@ -94,7 +95,7 @@ async function getIsEsm(
 
 async function getEsmExtension(
   build: PluginBuild,
-  options: PluginOptions
+  options: PluginOptions,
 ): Promise<string> {
   if (typeof options.esmExtension === "undefined") {
     return "mjs";
@@ -111,7 +112,7 @@ async function getEsmExtension(
 
 async function getCjsExtension(
   build: PluginBuild,
-  options: PluginOptions
+  options: PluginOptions,
 ): Promise<string> {
   if (typeof options.cjsExtension === "undefined") {
     return "cjs";
@@ -158,7 +159,7 @@ function pathExtIsJsLikeExtension(path: string): boolean {
 async function handleResolve(
   args: OnResolveArgs,
   build: PluginBuild,
-  options: PluginOptions
+  options: PluginOptions,
 ): Promise<OnResolveResult | undefined> {
   if (args.kind == "import-statement") {
     const isEsm = await getIsEsm(build, options);
@@ -167,19 +168,19 @@ async function handleResolve(
 
     if (typeof isEsm !== "boolean") {
       throw new TypeError(
-        `isEsm must be a boolean, received ${typeof isEsm} (${isEsm})`
+        `isEsm must be a boolean, received ${typeof isEsm} (${isEsm})`,
       );
     }
 
     if (typeof cjsExtension !== "string") {
       throw new TypeError(
-        `cjsExtension must be a string, received ${typeof cjsExtension} (${cjsExtension})`
+        `cjsExtension must be a string, received ${typeof cjsExtension} (${cjsExtension})`,
       );
     }
 
     if (typeof esmExtension !== "string") {
       throw new TypeError(
-        `esmExtension must be a string, received ${typeof esmExtension} (${esmExtension})`
+        `esmExtension must be a string, received ${typeof esmExtension} (${esmExtension})`,
       );
     }
 
@@ -213,7 +214,7 @@ export const mandatoryFileExtensionsPlugin = (
     filter: /.*/,
     cjsExtension: "cjs",
     esmExtension: "mjs",
-  }
+  },
 ): Plugin => {
   const filter = getFilter(options);
   const { namespace } = options;
@@ -225,18 +226,22 @@ export const mandatoryFileExtensionsPlugin = (
       if (options.esm) {
         if (build.initialOptions.outExtension) {
           build.initialOptions.outExtension[".js"] = `.${options.esmExtension}`;
-        }else{
-          build.initialOptions.outExtension = { ".js":`.${options.esmExtension}`};
+        } else {
+          build.initialOptions.outExtension = {
+            ".js": `.${options.esmExtension}`,
+          };
         }
-      }else{
+      } else {
         if (build.initialOptions.outExtension) {
           build.initialOptions.outExtension[".js"] = `.${options.cjsExtension}`;
-        }else{
-          build.initialOptions.outExtension = { ".js":`.${options.cjsExtension}`};
+        } else {
+          build.initialOptions.outExtension = {
+            ".js": `.${options.cjsExtension}`,
+          };
         }
       }
       build.onResolve({ filter, namespace }, (args) =>
-        handleResolve(args, build, options)
+        handleResolve(args, build, options),
       );
     },
   };
@@ -246,7 +251,7 @@ export const mandatoryFileExtensionsPlugin = (
  * The [esbuild-plugin-file-path-extensions](https://github.com/favware/esbuild-plugin-file-path-extensions/#readme) version
  * that you are currently using.
  */
-// eslint-disable-next-line @typescript-eslint/no-inferrable-types
+// oxlint-disable-next-line @typescript-eslint/no-inferrable-types
 export const version: string = "[VI]{{inject}}[/VI]";
 
 type Awaitable<T> = PromiseLike<T> | T;

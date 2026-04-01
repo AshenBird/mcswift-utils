@@ -1,47 +1,37 @@
 {
   "name": "@mcswift/cli",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "",
-  "type": "module",
-  "main": "lib/cjs/index.cjs",
-  "module": "lib/esm/index.mjs",
-  "exports": {
-    ".": {
-      "import": "./lib/esm/index.mjs",
-      "require": "./lib/cjs/index.cjs",
-      "types": "./types/index.d.ts"
-    }
-  },
-  "types": "types/index.d.ts",
-  "files": [
-    "lib/**/*",
-    "types/**/*"
-  ],
   "keywords": [],
-  "author": {
-    "email": "hi@mcswift.cn",
-    "name": "McSwift"
-  },
   "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^20.11.30",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
-    "jest": "^29.7.0",
-    "tsx": "^3.12.6",
-    "typescript": "^5.4.3"
-  },
-  "scripts": {
-    "build": "cd ../../ && npm run build -- --pack=\"cli\"",
-    "doctor": "cd ../../ && npm run doctor -- --pack=\"cli\"",
-    "test": "tsx ./test/index.test.ts"
+  "author": {
+    "name": "McSwift",
+    "email": "hi@mcswift.cn"
   },
   "repository": {
     "type": "git",
-    "directory": "https://github.com/AshenBird/packages/tree/main/packages/cli"
+    "directory": "https://github.com/AshenBird/mcswift-utils/tree/main/packages/cli"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "type": "module",
+  "main": "lib/cjs/index.cjs",
+  "module": "lib/esm/index.mjs",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs"
+    }
   },
   "dependencies": {
-    "@mcswift/base-utils": "workspace:^",
-    "eslint": "^8.57.0"
+    "@mcswift/base-utils": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "jest": "^30.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "catalog:"
   }
 }

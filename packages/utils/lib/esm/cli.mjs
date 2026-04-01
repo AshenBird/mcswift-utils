@@ -1,2 +1,3 @@
-// packages/utils/src/cli.ts
+import "./_virtual/_rolldown/runtime.mjs";
 export * from "@mcswift/cli";
+export {};

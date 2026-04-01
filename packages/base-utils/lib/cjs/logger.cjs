@@ -1,95 +1,98 @@
-"use strict";
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const require_runtime = require("./_virtual/_rolldown/runtime.cjs");
+const require_json = require("./json.cjs");
+let chalk = require("chalk");
+let node_console = require("node:console");
+node_console = require_runtime.__toESM(node_console);
+//#region packages/base-utils/src/logger.ts
+const { red, white, green, yellow, blue, gray } = new chalk.Chalk();
+const getTimeText = () => {
+	return ` ${(/* @__PURE__ */ new Date()).toLocaleTimeString()} `;
 };
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
+const transform = (val) => {
+	if (typeof val === "string") return val;
+	const v = require_json.toJsonString(val);
+	if (v) return v;
+	return val;
 };
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// packages/base-utils/src/logger.ts
-var logger_exports = {};
-__export(logger_exports, {
-  Logger: () => Logger
-});
-module.exports = __toCommonJS(logger_exports);
-var import_chalk = require("chalk");
-var import_json = require("./json.cjs");
-var { red, white, green, yellow, blue, gray } = new import_chalk.Chalk();
-var getTimeText = () => {
-  const date = /* @__PURE__ */ new Date();
-  const timeString = date.toLocaleTimeString();
-  const time = ` ${timeString} `;
-  return time;
+const log = (info) => {
+	node_console.default.log(green(getTimeText()), white(transform(info)));
 };
-var transform = (val) => {
-  if (typeof val === "string")
-    return val;
-  const v = (0, import_json.toJsonString)(val);
-  if (v)
-    return v;
-  return val;
+const info = (info) => {
+	node_console.default.log(gray(getTimeText()), white(transform(info)));
 };
-var log = (info2) => {
-  console.log(green(getTimeText()), white(transform(info2)));
+const error = (info) => {
+	node_console.default.log(red(getTimeText()), white(transform(info)));
 };
-var info = (info2) => {
-  console.log(gray(getTimeText()), white(transform(info2)));
+const warn = (info) => {
+	node_console.default.log(yellow(getTimeText()), white(transform(info)));
 };
-var error = (info2) => {
-  console.log(red(getTimeText()), white(transform(info2)));
+const debug = (info) => {
+	node_console.default.log(blue(getTimeText()), white(transform(info)));
 };
-var warn = (info2) => {
-  console.log(yellow(getTimeText()), white(transform(info2)));
+const store = /* @__PURE__ */ new Map();
+const convertToJsonRecord = (val) => {
+	if (typeof val === "boolean") return val.toString();
+	if (typeof val === "number") return val.toString();
+	if (typeof val === "string") return val.toString();
+	if (typeof val === "undefined") return "undefined";
+	if (typeof val === "symbol") return val.toString();
+	if (typeof val === "function") return val.toString();
+	if (typeof val === "bigint") return `${val.toString()}n`;
+	if (val === null) return "null";
+	if (Array.isArray(val)) return JSON.stringify(val.map(convertToJsonRecord), void 0, 2);
+	if (val instanceof Map) {
+		const record = [...val.entries()].reduce((a, c) => {
+			const [key, value] = c;
+			a[convertToJsonRecord(key)] = convertToJsonRecord(value);
+			return a;
+		}, {});
+		return `Map(${JSON.stringify(record, void 0, 2)})`;
+	}
+	if (val instanceof Set) {
+		const arr = [...val.values()].map(convertToJsonRecord);
+		return `Set(${JSON.stringify(arr, void 0, 2)})`;
+	}
+	const r = Object.entries(val).reduce((a, c) => {
+		const [key, value] = c;
+		a[key] = convertToJsonRecord(value);
+		return a;
+	}, {});
+	try {
+		return JSON.stringify(r, void 0, 2);
+	} catch {
+		return val.toString();
+	}
 };
-var debug = (info2) => {
-  console.log(blue(getTimeText()), white(transform(info2)));
-};
-var store = /* @__PURE__ */ new Map();
 var Logger = class {
-  static log = log;
-  static info = info;
-  static error = error;
-  static warn = warn;
-  static debug = debug;
-  channel;
-  constructor(channel) {
-    this.channel = channel;
-    store.set(channel, this);
-  }
-  levelFac(level, color) {
-    return (...args) => console.log(
-      color(`[${getTimeText()}|${level}|${this.channel}]`),
-      ...args.map((info2) => white(transform(info2)))
-    );
-  }
-  log(...args) {
-    this.levelFac("LOG", green)(...args);
-  }
-  info(...args) {
-    this.levelFac("INFO", green)(...args);
-  }
-  error(...args) {
-    this.levelFac("ERROR", red)(...args);
-  }
-  warn(...args) {
-    this.levelFac("WARN", yellow)(...args);
-  }
-  debug(...args) {
-    this.levelFac("DEBUG", blue)(...args);
-  }
+	static log = log;
+	static info = info;
+	static error = error;
+	static warn = warn;
+	static debug = debug;
+	channel;
+	constructor(channel) {
+		this.channel = channel;
+		store.set(channel, this);
+	}
+	levelFac(level, color) {
+		return (...args) => node_console.default.log(color(`[${getTimeText()}| ${level} | ${this.channel} ]`), ...args.map((info) => white(transform(info))));
+	}
+	log(...args) {
+		this.levelFac("LOG", green)(...args.map(convertToJsonRecord));
+	}
+	info(...args) {
+		this.levelFac("INFO", green)(...args.map(convertToJsonRecord));
+	}
+	error(...args) {
+		this.levelFac("ERROR", red)(...args.map(convertToJsonRecord));
+	}
+	warn(...args) {
+		this.levelFac("WARN", yellow)(...args.map(convertToJsonRecord));
+	}
+	debug(...args) {
+		this.levelFac("DEBUG", blue)(...args.map(convertToJsonRecord));
+	}
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  Logger
-});
+//#endregion
+exports.Logger = Logger;

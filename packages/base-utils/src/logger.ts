@@ -1,5 +1,6 @@
 import { Chalk, ChalkInstance } from "chalk";
 import { toJsonString } from "./json";
+import console from "node:console";
 const { red, white, green, yellow, blue, gray } = new Chalk();
 const getTimeText = () => {
   const date = new Date();
@@ -33,45 +34,50 @@ const debug = (info: unknown) => {
 };
 const store = new Map<string, Logger>();
 
-const convertToJsonRecord = (val:unknown):string=>{
-  if(typeof val==="boolean")return val.toString()
-  if(typeof val==="number")return val.toString()
-  if(typeof val==="string")return val.toString()
-  if(typeof val==="undefined")return "undefined"
-  if(typeof val==="symbol")return val.toString()
-  if(typeof val==="function")return val.toString()
-  if(typeof val==="bigint")return `${val.toString()}n`
-  if(val===null)return "null"
-  if(Array.isArray(val)){
-    return JSON.stringify(val.map(convertToJsonRecord),undefined,2);
+const convertToJsonRecord = (val: unknown): string => {
+  if (typeof val === "boolean") return val.toString();
+  if (typeof val === "number") return val.toString();
+  if (typeof val === "string") return val.toString();
+  if (typeof val === "undefined") return "undefined";
+  if (typeof val === "symbol") return val.toString();
+  if (typeof val === "function") return val.toString();
+  if (typeof val === "bigint") return `${val.toString()}n`;
+  if (val === null) return "null";
+  if (Array.isArray(val)) {
+    return JSON.stringify(val.map(convertToJsonRecord), undefined, 2);
   }
-  if(val instanceof Map){
-    const record = [...val.entries()].reduce((a,c:[unknown,unknown])=>{
-      const [key,value] = c;
-      a[convertToJsonRecord(key)] = convertToJsonRecord(value);
-      return a
-    },{} as Record<string|symbol|number,unknown>)
+  if (val instanceof Map) {
+    const record = [...val.entries()].reduce(
+      (a, c: [unknown, unknown]) => {
+        const [key, value] = c;
+        a[convertToJsonRecord(key)] = convertToJsonRecord(value);
+        return a;
+      },
+      {} as Record<string | symbol | number, unknown>,
+    );
 
-    return `Map(${JSON.stringify(record,undefined,2)})`;
+    return `Map(${JSON.stringify(record, undefined, 2)})`;
   }
-  
-  if(val instanceof Set){
-    const arr = [...val.values()].map(convertToJsonRecord) as string[]
 
-    return `Set(${JSON.stringify(arr,undefined,2)})`;
-  }
-  const r = Object.entries(val).reduce((a,c:[string|symbol|number,unknown])=>{
-    const [key,value] = c;
-    a[key] = convertToJsonRecord(value);
-    return a
-  },{} as Record<string|symbol|number,unknown>)
-  try{
-    return JSON.stringify(r,undefined,2)
-  }catch(e){
-    return val.toString()
-  }
-}
+  if (val instanceof Set) {
+    const arr = [...val.values()].map(convertToJsonRecord) as string[];
 
+    return `Set(${JSON.stringify(arr, undefined, 2)})`;
+  }
+  const r = Object.entries(val).reduce(
+    (a, c: [string | symbol | number, unknown]) => {
+      const [key, value] = c;
+      a[key] = convertToJsonRecord(value);
+      return a;
+    },
+    {} as Record<string | symbol | number, unknown>,
+  );
+  try {
+    return JSON.stringify(r, undefined, 2);
+  } catch {
+    return val.toString();
+  }
+};
 
 export class Logger {
   static log = log;
@@ -88,23 +94,23 @@ export class Logger {
     return (...args: unknown[]) =>
       console.log(
         color(`[${getTimeText()}| ${level} | ${this.channel} ]`),
-        ...args.map((info) => white(transform(info)))
+        ...args.map((info) => white(transform(info))),
       );
   }
-  log(...args:unknown[]) {
-    this.levelFac("LOG",green)(...args.map(convertToJsonRecord))
+  log(...args: unknown[]) {
+    this.levelFac("LOG", green)(...args.map(convertToJsonRecord));
   }
-  info(...args:unknown[]) {
-    this.levelFac("INFO",green)(...args.map(convertToJsonRecord))
+  info(...args: unknown[]) {
+    this.levelFac("INFO", green)(...args.map(convertToJsonRecord));
   }
-  error(...args:unknown[]) {
-    this.levelFac("ERROR",red)(...args.map(convertToJsonRecord))
+  error(...args: unknown[]) {
+    this.levelFac("ERROR", red)(...args.map(convertToJsonRecord));
   }
-  warn(...args:unknown[]) {
-    this.levelFac("WARN",yellow)(...args.map(convertToJsonRecord))
+  warn(...args: unknown[]) {
+    this.levelFac("WARN", yellow)(...args.map(convertToJsonRecord));
   }
 
-  debug(...args:unknown[]) {
-    this.levelFac("DEBUG",blue)(...args.map(convertToJsonRecord))
+  debug(...args: unknown[]) {
+    this.levelFac("DEBUG", blue)(...args.map(convertToJsonRecord));
   }
 }

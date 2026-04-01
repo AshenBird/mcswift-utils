@@ -1,9 +1,12 @@
 import type { Options, Schema } from "./types";
 
-export const resolveCliOption = <T extends Schema = Schema>(
+export const resolveCliOption = <
+  O extends Options = Options,
+  S extends Schema = Schema,
+>(
   options: string[],
-  schema?: T | undefined
-): Options<T> | Options => {
+  schema?: S,
+): O => {
   if (schema) return resolveCliOptionWithSchema(options, schema);
   const first = options
     .join(" ") // 重新拼接成字符串
@@ -13,7 +16,7 @@ export const resolveCliOption = <T extends Schema = Schema>(
       coup
         .split(" ")
         .map((w) => w.trim())
-        .filter((w) => !!w)
+        .filter((w) => !!w),
     )
     .filter((c) => c.length > 0);
   const result: Options = {};
@@ -38,13 +41,13 @@ export const resolveCliOption = <T extends Schema = Schema>(
     // 通常参数
     result[k] = optionHandle(v);
   }
-  return result;
+  return result as O;
 };
 
 // 将一些模式值转换成 js 兼容的值
 export const optionHandle = (
   val: string,
-  forceString = false
+  forceString = false,
 ): string | boolean | number => {
   if (val.startsWith("`") && val.endsWith("`")) {
     return val.slice(1, -1);
@@ -63,13 +66,16 @@ export const optionHandle = (
   if (!isNaN(r)) return r;
   return val;
 };
-const resolveCliOptionWithSchema = <T extends Schema = Schema>(
+const resolveCliOptionWithSchema = <
+  O extends Options = Options,
+  T extends Schema = Schema,
+>(
   args: string[],
-  schema: T
-): Options<T> => {
-  const result = {} as Options<T>;
+  schema: T,
+): O => {
+  const result = {} as O;
   const _: string[] = [];
-  const getType = (name: string) => schema.shape[name].type;
+
   for (;;) {
     if (args.length === 0) break;
     const arg = args.shift() as string;
@@ -78,27 +84,27 @@ const resolveCliOptionWithSchema = <T extends Schema = Schema>(
       const raw = arg.slice(2);
       if (raw.includes("=")) {
         const [name, val] = raw.split("=");
-        const value = optionHandle(val, getType(name) === "string");
+        const value = optionHandle(val, schema.getType(name) === "string");
         // @ts-ignore
         result[name] = value;
         continue;
       }
       const name = raw;
-      if (getType(name) === "boolean") {
+      if (schema.getType(name) === "boolean") {
         // @ts-ignore
         result[name] = true;
         continue;
       }
       const val = args.shift();
       if (!val) throw new Error(`${name} option can't found value.`);
-      const value = optionHandle(val, getType(name) === "string");
+      const value = optionHandle(val, schema.getType(name) === "string");
       // @ts-ignore
       result[name] = value;
       continue;
     }
     // 别名 @todo
-    if (arg.startsWith("--")) {
-    }
+    // if (arg.startsWith("--")) {
+    // }
   }
   const report = schema.parse(result);
   if (report.status) return result;

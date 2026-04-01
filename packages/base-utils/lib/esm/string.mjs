@@ -1,11 +1,7 @@
-// packages/base-utils/src/string.ts
 import { customAlphabet } from "nanoid";
-var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var numbers = "0123456789";
-var alphabet = letters + letters.toLowerCase() + numbers;
-var nanoid = customAlphabet(alphabet);
-var randomString = nanoid;
-export {
-  nanoid,
-  randomString
-};
+//#region packages/base-utils/src/string.ts
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const nanoid = customAlphabet(letters + letters.toLowerCase() + "0123456789");
+const randomString = nanoid;
+//#endregion
+export { nanoid, randomString };

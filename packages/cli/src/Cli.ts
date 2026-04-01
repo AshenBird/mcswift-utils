@@ -1,8 +1,8 @@
 import { Logger } from "@mcswift/base-utils";
-import { argv } from "process";
+import { argv } from "node:process";
 import { resolveCliOption } from ".";
 import { Command } from "./Command";
-import type{ Handle, Options,Schema, CommandInit } from "./types";
+import type { Handle, Options, CommandInit } from "./types";
 // const HELP = Symbol("help");
 // const README = Symbol("readme");
 
@@ -13,7 +13,7 @@ export class Cli {
     // this._use(HELP, this.help.bind(this));
     // this._use(README, this.readme.bind(this));
   }
-  private map = new Map<string | symbol, Command|Handle>();
+  private map = new Map<string | symbol, Command | Handle<Options>>();
 
   /**
    *
@@ -21,36 +21,29 @@ export class Cli {
    * @param handle
    * @param schema
    */
-  use<T extends Schema = Schema>(
-    init:CommandInit<T>
-  ): this;
+  use<T extends Options>(init: CommandInit<T>): this;
   /**
    * @param command
    */
-  use<T extends Schema = Schema>(
-    command: Command<T>
-  ): this;
-  
-  use(
-    name: string,
-    handle:Handle
-  ): this;
-  use<T extends Schema = Schema>(
-    arg1:CommandInit<T>|Command<T>|string,
-    arg2?:Handle
+  use<T extends Options>(command: Command<T>): this;
+
+  use(name: string, handle: Handle<Options>): this;
+  use<T extends Options>(
+    arg1: CommandInit<T> | Command<T> | string,
+    arg2?: Handle<T>,
   ) {
-    if(typeof arg1 === "string"){
-      if(!arg2) throw null as never
-      this.map.set(arg1,arg2)
-      return this
+    if (typeof arg1 === "string") {
+      if (!arg2) throw null as never;
+      this.map.set(arg1, arg2 as Handle<Options>);
+      return this;
     }
-    if(arg1 instanceof Command){
+    if (arg1 instanceof Command) {
       this.map.set(arg1.name, arg1 as unknown as Command);
-      return this
+      return this;
     }
-    const  command = new Command<T>(arg1)
+    const command = new Command<T>(arg1);
     this.map.set(command.name, command as unknown as Command);
-    return this
+    return this;
   }
 
   help() {
@@ -70,8 +63,8 @@ export class Cli {
   private async _run(name: string, options: Options = {}) {
     const command = this.map.get(name);
     if (!command) {
-      if( command === "help" )return this.help();
-      if( command === "readme" )return this.readme();
+      if (command === "help") return this.help();
+      if (command === "readme") return this.readme();
       Logger.warn(`Can't found ${name} command. Please check you input.`);
       return this;
     }
@@ -79,21 +72,12 @@ export class Cli {
     // 校验
     if (command instanceof Command && command.schema) {
       const result = command.schema.parse(options);
-      if (!result.status) {
-        // @todo
-        // for (const [field, errs] of Object.entries(
-        //   result.error.formErrors.fieldErrors
-        // )) {
-        //   Logger.error(`${field}: ${errs?.join("\n           ")}`);
-        // }
-        return;
-      }
-      _options = result.data;
+      _options = result;
     }
-    
+
     // 执行
-    if(command instanceof Command)await command.handle(_options, this);
-    else await command(_options,this)
+    if (command instanceof Command) await command.handle(_options, this);
+    else await command(_options, this);
     return this;
   }
   start() {

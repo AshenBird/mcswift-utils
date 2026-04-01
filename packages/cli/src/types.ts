@@ -1,18 +1,17 @@
 import type { Cli } from "./Cli";
-import type { Infer, Schema } from "./options/types";
+import { Schema } from "./options/types";
 
-export type Options<T extends Schema = Schema> = Infer<T>
+export type Options = Record<string, string | number | boolean>;
 
 /*-----------------------------------*/
-export interface Handle<T extends Schema = Schema> {
-  (options: Options<T>, cli:Cli): unknown;
+export interface Handle<T extends Options> {
+  (options: T, cli: Cli): unknown;
 }
 
-export type CommandInit<T extends Schema = Schema> = {
-  name:string
-  handle:Handle<T>
-  schema:T
-}
+export type CommandInit<T extends Options> = {
+  name: string;
+  handle: Handle<T>;
+  schema?: Schema<T>;
+};
 
-export * from "./options/types"
-
+export * from "./options/types";

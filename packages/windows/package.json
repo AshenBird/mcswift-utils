@@ -1,45 +1,36 @@
 {
   "name": "@mcswift/windows",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": {
+    "name": "McSwift",
+    "email": "hi@mcswift.cn"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/AshenBird/mcswift-utils/tree/main/packages/windows"
+  },
+  "files": [
+    "lib/**/*"
+  ],
   "type": "module",
   "main": "lib/cjs/index.cjs",
   "module": "lib/esm/index.mjs",
   "types": "types/index.d.ts",
-  "files": [
-    "lib/**/*",
-    "types/**/*"
-  ],
   "exports": {
     ".": {
       "import": "./lib/esm/index.mjs",
-      "require": "./lib/cjs/index.cjs",
-      "types": "./types/index.d.ts"
+      "require": "./lib/cjs/index.cjs"
     }
   },
-  "keywords": [],
-  "author": {
-    "email": "hi@mcswift.cn",
-    "name": "McSwift"
-  },
-  "license": "MIT",
   "dependencies": {
     "@mcswift/node": "workspace:^",
-    "@mcswift/types": "workspace:^",
-    "eslint": "^8.57.0"
+    "@mcswift/types": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
-    "typescript": "^5.4.3"
-  },
-  "scripts": {
-    "build": "cd ../../ && npm run build -- --pack=\"windows\"",
-    "doctor": "cd ../../ && npm run doctor -- --pack=\"windows\""
-  },
-  "repository": {
-    "type": "git",
-    "directory": "https://github.com/AshenBird/packages/tree/main/packages/windows"
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }

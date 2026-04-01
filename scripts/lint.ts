@@ -1,90 +1,83 @@
-
-import { ESLint } from "eslint";
-import { getPackageDir,root as _ } from "./utils";
+import { getPackageDir, root as _ } from "./utils";
 import chalk from "chalk";
-// @ts-ignore
-import  baseConfig from "../.eslintrc.js"
 import { join } from "node:path";
 import { Logger } from "@mcswift/base-utils";
-// const cols = process.stdout.columns;
-const createLine = (char:string,head:string="")=>{
-  const cols =process.stdout.columns 
-  const len = cols-head.length
+import { spawnSync } from "node:child_process";
+import * as process from "node:process";
+import { getCommandFile } from "@mcswift/node";
+const createLine = (char: string, head: string = "") => {
+  const cols = process.stdout.columns;
+  const len = cols - head.length;
   return head + Array(len).fill(char, 0, len).join("");
-}
-const createCenterText = ( text:string, char:string=" ")=>{
-  const cols =process.stdout.columns 
-  const len = cols-text.length
-  const half = Math.ceil(len/2)
+};
+const createCenterText = (text: string, char: string = " ") => {
+  const cols = process.stdout.columns;
+  const len = cols - text.length;
+  const half = Math.ceil(len / 2);
   const halfFill = Array(half).fill(char, 0, half).join("");
-  return halfFill+ text + halfFill;
-}
-const sp = createLine("-")
-const warnLine = createLine(" "," WARN:")
-const errorLine = createLine(" "," ERROR:")
-export const lint = async (name: string) => {
+  return halfFill + text + halfFill;
+};
+const sp = createLine("-");
+const warnLine = createLine(" ", " WARN:");
+const errorLine = createLine(" ", " ERROR:");
+export const lint = async (name: string): Promise<[string[], string[]]> => {
+  return oxclint(name);
+};
+const oxclint = async (name: string) => {
   const root = getPackageDir(name);
-  const linter = new ESLint({
+  const oxlintPath = getCommandFile("oxlint", root);
+  if (!oxlintPath) return [[], []] as [string[], string[]];
+  const { status, output } = spawnSync(oxlintPath, [".", "-f", "json"], {
     cwd: root,
-    fix: true,
-    baseConfig,
-    ignore:true,
-    ignorePath:join(_,".eslintignore")
+    encoding: "utf-8",
+    shell: true,
   });
-  const r = await linter.lintFiles(["**/*.ts"]);
-  const errorGroup: string[] = [];
+  if (status !== 0) return [[], []] as [string[], string[]];
+  const resultRaw = output.map((item) => (item ? item : "")).join("");
+  const result = JSON.parse(resultRaw);
   const warnGroup: string[] = [];
-  for (const problem of r) {
-    const { errorCount, warningCount, filePath } = problem;
-    if (errorCount === 0 && warningCount === 0) continue;
-    problem.messages.forEach((m) => {
-      const { severity, ruleId, message, line, column } = m;
-      const msg = message.split("\n").join("\n            ");
-      const situation = `${filePath}:${line}:${column}`;
-      const kc = chalk.hex("#dddddd"); //chalk.blueBright
-      const c = severity === 1 ? "yellow" : "red";
-      const info = `\n · ${chalk.green(ruleId)}\n   ${kc("message:")} ${chalk[
-        c
-      ](msg)}\n   ${kc("situation:")} ${chalk.gray(situation)}`;
-      if (severity === 1) warnGroup.push(info);
-      if (severity === 2) errorGroup.push(info);
-    });
+  const errorGroup: string[] = [];
+  for (const item of result.diagnostics) {
+    const { help, code, url, message, filename, severity, labels } = item;
+    const { label, span } = labels[0];
+    const { line, column } = span;
+    const filePath = join(root, filename);
+    const situation = `${filePath}:${line}:${column}`;
+    const msg = `${message}${label ? `(${label})` : ""}`;
+    const kc = chalk.hex("#dddddd"); //chalk.blueBright
+    const c = severity === "warning" ? "yellow" : "red";
+    const lines = [
+      `\n · ${chalk.green(code)}`,
+      `\n   ${kc("message:")} ${chalk[c](msg)}`,
+      `\n   ${kc("situation:")} ${chalk.gray(situation)}`,
+      `\n   ${kc("help:")} ${help}`,
+      `\n   ${kc("url:")} ${url}`,
+    ];
+    const info = lines.join("\n");
+    if (severity === "warning") warnGroup.push(info);
+    if (severity === "error") errorGroup.push(info);
   }
-
-  // [
-  //   'filePath',
-  //   'messages',
-  //   'suppressedMessages',
-  //   'errorCount',
-  //   'fatalErrorCount',
-  //   'warningCount',
-  //   'fixableErrorCount',
-  //   'fixableWarningCount',
-  //   'source',
-  //   'usedDeprecatedRules'
-  // ])
-  return [warnGroup, errorGroup] as const;
+  return [warnGroup, errorGroup] as [string[], string[]];
 };
 
 export const lintReport = (warnGroup: string[], errorGroup: string[]) => {
-
   const line1 = "LINT REPORT";
-  const sp2 = '\n'+chalk.hex("#111111")(createLine(" ","   "))
+  const sp2 = "\n" + chalk.hex("#111111")(createLine(" ", "   "));
   const warnBlock =
     warnGroup.length > 0
-      ? `\n${chalk.bgRed.white(warnLine)}${warnGroup.join(sp2)}`
+      ? `\n${chalk.bold(chalk.bgRgb(222, 150, 0).black(warnLine))}${warnGroup.join(sp2)}`
       : "";
   const errorBlock =
     errorGroup.length > 0
-      ? `\n${chalk.bgRed.white(errorLine)}${errorGroup.join(sp2)}`
+      ? `\n${chalk.bgRed.white.bold(errorLine)}${errorGroup.join(sp2)}`
       : "";
-  const lastLine = `\n\n   TOTAL: warn ${warnGroup.length}, error ${errorGroup.length}`;
+  const lastLine = `\n\n   TOTAL: warn ${chalk.yellow(warnGroup.length)}, error ${chalk.red(errorGroup.length)}`;
   // const line2 = Array(process.stdout.columns).fill(" " as never,0,process.stdout.columns)
   // \n${chalk.bgRed(line2.join(''))}
-  const content = warnGroup.length+errorGroup.length>0
-  ?`${warnBlock}${errorBlock}`
-  :('\n\n\n'+chalk.green(createCenterText(`Congratulate! You are Clean.`)))
-  Logger.debug(
-    `${line1}\n${sp}${content}${chalk.gray(lastLine)}\n${sp}`
-  );
+  const content =
+    warnGroup.length + errorGroup.length > 0
+      ? `${warnBlock}${errorBlock}`
+      : "\n\n\n" +
+        chalk.green(createCenterText(`Congratulate! You are Clean.`));
+  Logger.debug(`${line1}\n${sp}${content}${chalk.gray(lastLine)}\n${sp}`);
 };

@@ -1,24 +1,10 @@
-"use strict";
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// packages/utils/src/cli.ts
-var cli_exports = {};
-module.exports = __toCommonJS(cli_exports);
-__reExport(cli_exports, require("@mcswift/cli"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("@mcswift/cli")
+require("./_virtual/_rolldown/runtime.cjs");
+var _mcswift_cli = require("@mcswift/cli");
+Object.keys(_mcswift_cli).forEach(function(k) {
+	if (k !== "default" && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+		enumerable: true,
+		get: function() {
+			return _mcswift_cli[k];
+		}
+	});
 });

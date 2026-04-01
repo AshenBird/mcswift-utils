@@ -1,5 +1,4 @@
-// packages/cli/src/options/const.ts
-var TYPE = Symbol();
-export {
-  TYPE
-};
+//#region packages/cli/src/options/const.ts
+const TYPE = Symbol();
+//#endregion
+export { TYPE };

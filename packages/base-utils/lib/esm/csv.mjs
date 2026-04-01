@@ -1,22 +1,16 @@
-// packages/base-utils/src/csv.ts
 import { AsyncParser } from "@json2csv/whatwg";
-var csvParser = new AsyncParser(
-  {
-    eol: "\n"
-  },
-  {},
-  {}
-);
-var CSVStringify = async (data) => {
-  const csv = await csvParser.parse(data);
-  return csv;
+//#region packages/base-utils/src/csv.ts
+const csvParser = new AsyncParser({ eol: "\n" }, {}, {});
+/**
+* @param data 对象数组,每个元素是一条数据，数据中 key 将作为列名，value 讲作为值
+* @returns
+*/
+const CSVStringify = async (data) => {
+	return await csvParser.parse(data);
 };
 var CSV = class {
-  stringify = CSVStringify;
-  // @todo
-  parse = () => {
-  };
+	stringify = CSVStringify;
+	parse = () => {};
 };
-export {
-  CSV
-};
+//#endregion
+export { CSV };

@@ -1,49 +1,17 @@
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// packages/node/src/index.ts
-var src_exports = {};
-__export(src_exports, {
-  child_process: () => child_process
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const require_child_process = require("./child_process.cjs");
+const require_path = require("./path.cjs");
+const require_util = require("./util.cjs");
+const require_PathProgram = require("./PathProgram.cjs");
+Object.defineProperty(exports, "child_process", {
+	enumerable: true,
+	get: function() {
+		return require_child_process.child_process_exports;
+	}
 });
-module.exports = __toCommonJS(src_exports);
-__reExport(src_exports, require("./path.cjs"), module.exports);
-__reExport(src_exports, require("./util.cjs"), module.exports);
-__reExport(src_exports, require("./PathProgram.cjs"), module.exports);
-var child_process = __toESM(require("./child_process.cjs"), 1);
-__reExport(src_exports, require("./util.cjs"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  child_process,
-  ...require("./path.cjs"),
-  ...require("./util.cjs"),
-  ...require("./PathProgram.cjs"),
-  ...require("./util.cjs")
-});
+exports.getAbsolutePath = require_path.getAbsolutePath;
+exports.getCommandFile = require_path.getCommandFile;
+exports.getDirectoryPaths = require_path.getDirectoryPaths;
+exports.getFilePaths = require_path.getFilePaths;
+exports.getPathProgram = require_PathProgram.getPathProgram;
+exports.pipeCross = require_util.pipeCross;

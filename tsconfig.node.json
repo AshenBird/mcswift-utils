@@ -1,9 +1,6 @@
 {
-  // "include": [
-  //   "src/node/**/*.ts"
-  // ],
-  "compilerOptions":{
-    "emitDeclarationOnly":false
+  "compilerOptions": {
+    "emitDeclarationOnly": false
   },
   "extends": "./tsconfig.json"
 }

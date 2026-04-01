@@ -1,32 +1,32 @@
 import chalk from "chalk";
 import { join } from "path";
-import { getPackageDir, root, workspace } from "./utils";
-import { copyFileSync, existsSync } from "node:fs";
-import { NpmPackage } from "@mcswift/npm"
+import { getPackageDir, workspace } from "./utils";
+import { existsSync } from "node:fs";
+import { NpmPackage } from "@mcswift/npm";
 import { Logger } from "@mcswift/base-utils";
-import  { type NPM } from "@mcswift/types";
+import { type NPM } from "@mcswift/types";
 export const check = async (name: string) => {
   const dir = getPackageDir(name);
   const packInfo = new NpmPackage(dir);
-  const version = workspace.data.version as string
-  packInfo.setPackageInfo("version",version)
-  // 
-  const scripts = Object.assign(packInfo.data.scripts||{},{
-    build : `cd ../../ && npm run build -- --pack="${name}"`,
-    doctor : `cd ../../ && npm run doctor -- --pack="${name}"`
-  })
-  // 
+  const version = workspace.data.version as string;
+  packInfo.setPackageInfo("version", version);
+  //
+  const scripts = Object.assign(packInfo.data.scripts || {}, {
+    build: `cd ../../ && npm run build -- --pack="${name}"`,
+    doctor: `cd ../../ && npm run doctor -- --pack="${name}"`,
+  });
+  //
   const repository = {
-    "type": "git",
-    "directory":`https://github.com/AshenBird/packages/tree/main/packages/${name}`
-  }
+    type: "git",
+    directory: `https://github.com/AshenBird/packages/tree/main/packages/${name}`,
+  };
   const author = {
-    "email": "hi@mcswift.cn",
-    "name": "McSwift"
-  }
-  packInfo.setPackageInfo("scripts",scripts)
-  packInfo.setPackageInfo("repository",repository)
-  packInfo.setPackageInfo("author",author)
+    email: "hi@mcswift.cn",
+    name: "McSwift",
+  };
+  packInfo.setPackageInfo("scripts", scripts);
+  packInfo.setPackageInfo("repository", repository);
+  packInfo.setPackageInfo("author", author);
   let result = true;
   // if (existsSync(join(dir, ".npmrc"))) {
   //   // copyFileSync(
@@ -35,12 +35,6 @@ export const check = async (name: string) => {
   //   // );
   //   removeSync(join(dir, ".npmrc"))
   // }
-  if (!existsSync(join(dir, ".eslintrc.js"))) {
-    copyFileSync(
-      join(root, `.eslintrc.js`),
-      join(dir, ".eslintrc.js")
-    );
-  }
   for (const field of ["main", "module", "type", "files"] as const) {
     if (name === "types" && field === "main") continue;
     if (name === "types" && field === "module") continue;
@@ -55,8 +49,8 @@ export const check = async (name: string) => {
       if (v !== "module") {
         Logger.error(
           `${chalk.white(`@mcswift/${name}`)} '${chalk.white(
-            field
-          )}' isn't module `
+            field,
+          )}' isn't module `,
         );
         result = false;
       }
@@ -66,8 +60,8 @@ export const check = async (name: string) => {
     if (existsSync(p)) continue;
     Logger.error(
       `${chalk.white(`@mcswift/${name}`)} can't find ${chalk.yellow(
-        v
-      )} for '${chalk.white(field)}'field `
+        v,
+      )} for '${chalk.white(field)}'field `,
     );
     result = false;
   }
@@ -95,11 +89,9 @@ export const check = async (name: string) => {
 const existsPackageField = (
   name: string,
   field: keyof NPM.Package,
-  info: NpmPackage
+  info: NpmPackage,
 ) => {
   if (info.data[field]) return true;
-  Logger.error(
-    `@mcswift/${name} can't find '${field}' field `
-  );
+  Logger.error(`@mcswift/${name} can't find '${field}' field `);
   return false;
 };
