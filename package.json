@@ -19,7 +19,6 @@
     "lint": "oxnode scripts/cli lint",
     "build": "oxnode scripts/cli build",
     "publish": "oxnode scripts/cli publish",
-    "prepublish": "oxnode scripts/cli build",
     "prepare": "vp config"
   },
   "devDependencies": {
