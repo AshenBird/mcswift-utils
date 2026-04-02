@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/workspace",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "private": true,
   "description": "",
   "keywords": [],
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git+https://github.com/AshenBird/mcswift-utils.git"
+    "url": "git+https://github.com/AshenBird/mcswift-utils.git"
   },
   "type": "module",
   "scripts": {

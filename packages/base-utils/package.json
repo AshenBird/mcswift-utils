@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/base-utils",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git+https://github.com/AshenBird/mcswift-utils.git",
+    "url": "git+https://github.com/AshenBird/mcswift-utils.git",
     "directory": "packages/base-utils"
   },
   "files": [
