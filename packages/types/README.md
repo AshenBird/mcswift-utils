@@ -16,7 +16,7 @@ npm install @mcswift/types -D
 pnpm add @mcswift/types -D
 ```
 
-### 使用指南
+### 使用指南及接口文档
 
 你可以直接导入该库中的类型，并在你的 TypeScript 代码中使用它们来提供更严格的类型约束。
 
@@ -34,6 +34,19 @@ const data: JSONRecord = {
 };
 
 const arr: JSONArray = [1, "2", true, null];
+```
+
+**类型注释：**
+```typescript
+export type JSONBaseValue = string | number | boolean | null;
+
+export interface JSONRecord {
+  [key: string]: JSONValue;
+}
+
+export type JSONValue = JSONBaseValue | JSONRecord | JSONValue[];
+
+export type JSONArray = JSONValue[];
 ```
 
 #### 2. NPM Package 类型
@@ -56,6 +69,23 @@ const packageJson: NPM.Package = {
 };
 ```
 
+**类型注释：**
+```typescript
+export namespace NPM {
+  export interface Package {
+    name?: string;
+    version?: string;
+    description?: string;
+    scripts?: Record<string, string>;
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+    peerDependencies?: Record<string, string>;
+    type?: "module" | "commonjs";
+    // ... 包含完整的 package.json 字段定义
+  }
+}
+```
+
 #### 3. String 拓展类型
 
 提供了一些基础的字符串模板类型约束，如电子邮件：
@@ -64,6 +94,11 @@ const packageJson: NPM.Package = {
 import type { EmailUrl } from "@mcswift/types";
 
 const email: EmailUrl = "admin@example.com";
+```
+
+**类型注释：**
+```typescript
+export type EmailUrl = `${string}@${string}.${string}`;
 ```
 
 ---
@@ -80,7 +115,7 @@ npm install @mcswift/types -D
 pnpm add @mcswift/types -D
 ```
 
-### Usage Guide
+### Usage Guide & API Documentation
 
 You can import types directly from this library and use them in your TypeScript code to enforce stricter type constraints.
 
@@ -98,6 +133,19 @@ const data: JSONRecord = {
 };
 
 const arr: JSONArray = [1, "2", true, null];
+```
+
+**Type Annotations:**
+```typescript
+export type JSONBaseValue = string | number | boolean | null;
+
+export interface JSONRecord {
+  [key: string]: JSONValue;
+}
+
+export type JSONValue = JSONBaseValue | JSONRecord | JSONValue[];
+
+export type JSONArray = JSONValue[];
 ```
 
 #### 2. NPM Package Types
@@ -120,6 +168,23 @@ const packageJson: NPM.Package = {
 };
 ```
 
+**Type Annotations:**
+```typescript
+export namespace NPM {
+  export interface Package {
+    name?: string;
+    version?: string;
+    description?: string;
+    scripts?: Record<string, string>;
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+    peerDependencies?: Record<string, string>;
+    type?: "module" | "commonjs";
+    // ... Contains complete package.json field definitions
+  }
+}
+```
+
 #### 3. String Extension Types
 
 Provides basic string template type constraints, such as email addresses:
@@ -128,4 +193,9 @@ Provides basic string template type constraints, such as email addresses:
 import type { EmailUrl } from "@mcswift/types";
 
 const email: EmailUrl = "admin@example.com";
+```
+
+**Type Annotations:**
+```typescript
+export type EmailUrl = `${string}@${string}.${string}`;
 ```

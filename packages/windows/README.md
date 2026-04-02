@@ -16,7 +16,7 @@ npm install @mcswift/windows
 pnpm add @mcswift/windows
 ```
 
-### 功能模块及使用文档
+### 使用指南及接口文档
 
 #### 1. 获取已安装的应用程序
 
@@ -44,6 +44,20 @@ async function fetchWindowsApps() {
 fetchWindowsApps();
 ```
 
+**类型注释：**
+```typescript
+type InstalledAppRecord = {
+  path: string;
+  name: string;
+  extension: string;
+};
+
+type InstalledAppMap = Map<string, InstalledAppRecord>;
+
+const installedAppMap: InstalledAppMap;
+const getInstalledApp: () => Promise<InstalledAppMap>;
+```
+
 #### 2. 内置的 PowerShell 命令串
 
 你也可以直接获取并使用库中内置的 PowerShell 原始命令字符串：
@@ -53,6 +67,11 @@ import { getInstalledAppCommand } from "@mcswift/windows";
 
 // 返回拼接好的 PowerShell 命令字符串，用于查询 App Paths
 console.log(getInstalledAppCommand);
+```
+
+**类型注释：**
+```typescript
+const getInstalledAppCommand: string;
 ```
 
 ---
@@ -69,7 +88,7 @@ npm install @mcswift/windows
 pnpm add @mcswift/windows
 ```
 
-### Features & Documentation
+### Usage Guide & API Documentation
 
 #### 1. Get Installed Applications
 
@@ -97,6 +116,20 @@ async function fetchWindowsApps() {
 fetchWindowsApps();
 ```
 
+**Type Annotations:**
+```typescript
+type InstalledAppRecord = {
+  path: string;
+  name: string;
+  extension: string;
+};
+
+type InstalledAppMap = Map<string, InstalledAppRecord>;
+
+const installedAppMap: InstalledAppMap;
+const getInstalledApp: () => Promise<InstalledAppMap>;
+```
+
 #### 2. Built-in PowerShell Command Strings
 
 You can also directly access and use the built-in raw PowerShell command strings provided by the library:
@@ -106,4 +139,9 @@ import { getInstalledAppCommand } from "@mcswift/windows";
 
 // Returns the concatenated PowerShell command string used to query App Paths
 console.log(getInstalledAppCommand);
+```
+
+**Type Annotations:**
+```typescript
+const getInstalledAppCommand: string;
 ```

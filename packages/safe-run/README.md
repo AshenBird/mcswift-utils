@@ -16,7 +16,7 @@ npm install @mcswift/safe-run
 pnpm add @mcswift/safe-run
 ```
 
-### 功能模块及使用文档
+### 功能模块及接口文档
 
 #### 1. `safeAwait` 处理 Promise
 
@@ -35,6 +35,15 @@ async function fetchData() {
   
   console.log("请求成功:", res);
 }
+```
+
+**类型注释：**
+```typescript
+type SafeResult<Result> =
+  | [error: null, result: Result]
+  | [error: Exclude<unknown, null>, result: null];
+
+const safeAwait: <Result = unknown>(promise: Promise<Result>) => Promise<SafeResult<Result>>;
 ```
 
 #### 2. `safeCall` 安全调用函数
@@ -60,6 +69,19 @@ const [asyncErr, asyncResult] = await safeCall(async () => {
 });
 ```
 
+**类型注释：**
+```typescript
+function safeCall<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Result,
+  ...params: Args
+): SafeResult<Result>;
+
+function safeCall<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Promise<Result>,
+  ...params: Args
+): Promise<SafeResult<Result>>;
+```
+
 #### 3. `safeApply` 安全调用函数（数组传参）
 
 与 `safeCall` 类似，但是参数以数组的形式传入（类似于 `Function.prototype.apply`）。
@@ -72,6 +94,19 @@ function sum(a: number, b: number) {
 }
 
 const [err, result] = safeApply(sum, [1, 2]);
+```
+
+**类型注释：**
+```typescript
+function safeApply<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Result,
+  params: Args
+): SafeResult<Result>;
+
+function safeApply<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Promise<Result>,
+  params: Args
+): Promise<SafeResult<Result>>;
 ```
 
 ---
@@ -88,7 +123,7 @@ npm install @mcswift/safe-run
 pnpm add @mcswift/safe-run
 ```
 
-### Features & Documentation
+### Features & API Documentation
 
 #### 1. `safeAwait` - Handle Promises
 
@@ -107,6 +142,15 @@ async function fetchData() {
   
   console.log("Request succeeded:", res);
 }
+```
+
+**Type Annotations:**
+```typescript
+type SafeResult<Result> =
+  | [error: null, result: Result]
+  | [error: Exclude<unknown, null>, result: null];
+
+const safeAwait: <Result = unknown>(promise: Promise<Result>) => Promise<SafeResult<Result>>;
 ```
 
 #### 2. `safeCall` - Safely Call Functions
@@ -132,6 +176,19 @@ const [asyncErr, asyncResult] = await safeCall(async () => {
 });
 ```
 
+**Type Annotations:**
+```typescript
+function safeCall<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Result,
+  ...params: Args
+): SafeResult<Result>;
+
+function safeCall<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Promise<Result>,
+  ...params: Args
+): Promise<SafeResult<Result>>;
+```
+
 #### 3. `safeApply` - Safely Call Functions (Array Arguments)
 
 Similar to `safeCall`, but arguments are passed as an array (similar to `Function.prototype.apply`).
@@ -144,4 +201,17 @@ function sum(a: number, b: number) {
 }
 
 const [err, result] = safeApply(sum, [1, 2]);
+```
+
+**Type Annotations:**
+```typescript
+function safeApply<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Result,
+  params: Args
+): SafeResult<Result>;
+
+function safeApply<Args extends any[] = any[], Result extends unknown = unknown>(
+  func: (...args: Args) => Promise<Result>,
+  params: Args
+): Promise<SafeResult<Result>>;
 ```

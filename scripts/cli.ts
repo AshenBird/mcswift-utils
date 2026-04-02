@@ -1,4 +1,4 @@
-import { Cli } from "@mcswift/cli";
+import { Cli } from "../packages/cli/src";
 import { addCommand } from "./add";
 import { build } from "./build";
 // import { check } from "./check";
@@ -6,13 +6,12 @@ import { lint, lintReport } from "./lint";
 import { publish } from "./publish";
 import { bat } from "./utils";
 import { clear } from "./clear";
-import { devBuild } from "./dev-build";
 const cli = new Cli();
 cli.use("build", async (options) => {
   const { pack } = options;
   if (pack === "types") return;
   if (pack) return build(pack as string);
-  return bat(build, true);
+  return bat(build, false);
 });
 
 // cli.use("doctor", async (options) => {
@@ -53,12 +52,7 @@ cli.use(
 cli.use("clear", async (options) => {
   const { pack } = options;
   if (pack) return clear(pack as string);
-  return bat(clear, true);
-});
-cli.use("dev-build", async (options) => {
-  const { pack } = options;
-  if (pack) return devBuild(pack as string);
-  return bat(devBuild, true);
+  return bat(clear);
 });
 cli.use(addCommand);
 cli.start();

@@ -1,10 +1,10 @@
 import { getPackageDir, root as _ } from "./utils";
 import chalk from "chalk";
 import { join } from "node:path";
-import { Logger } from "@mcswift/base-utils";
+import { Logger } from "../packages/base-utils/src";
 import { spawnSync } from "node:child_process";
 import * as process from "node:process";
-import { getCommandFile } from "@mcswift/node";
+import { getCommandFile } from "../packages/node/src";
 const createLine = (char: string, head: string = "") => {
   const cols = process.stdout.columns;
   const len = cols - head.length;

@@ -16,7 +16,7 @@ npm install @mcswift/node
 pnpm add @mcswift/node
 ```
 
-### 功能模块及使用文档
+### 功能模块及接口文档
 
 #### 1. 路径与文件工具 (Path & File)
 
@@ -43,6 +43,14 @@ const dirs = getDirectoryPaths("./src");
 const cmdPath = getCommandFile("eslint", __dirname);
 ```
 
+**类型注释：**
+```typescript
+const getAbsolutePath: (raw: string, base?: string) => string;
+const getCommandFile: (command: string, root?: string) => string | undefined;
+const getFilePaths: (path: string, exclude?: string[]) => string[];
+const getDirectoryPaths: (path: string) => string[];
+```
+
 #### 2. 子进程工具 (Child Process)
 
 提供针对 `child_process` 的 Promise 封装，便于使用 `async/await` 执行 shell 命令。
@@ -59,6 +67,17 @@ async function run() {
   }
 }
 run();
+```
+
+**类型注释：**
+```typescript
+import type { ExecOptions } from "node:child_process";
+
+namespace child_process {
+  const Promisify: {
+    exec: (command: string, options: ExecOptions) => Promise<string>;
+  };
+}
 ```
 
 #### 3. Path 环境变量解析 (Path Program)
@@ -79,6 +98,18 @@ async function findPrograms() {
 findPrograms();
 ```
 
+**类型注释：**
+```typescript
+type PathProgramInfo = {
+  name: string;
+  type: string;
+  call: string;
+  path: string;
+};
+
+const getPathProgram: () => Promise<Map<string, PathProgramInfo[]>>;
+```
+
 ---
 
 ## English
@@ -93,7 +124,7 @@ npm install @mcswift/node
 pnpm add @mcswift/node
 ```
 
-### Features & Documentation
+### Features & API Documentation
 
 #### 1. Path & File Utilities
 
@@ -120,6 +151,14 @@ const dirs = getDirectoryPaths("./src");
 const cmdPath = getCommandFile("eslint", __dirname);
 ```
 
+**Type Annotations:**
+```typescript
+const getAbsolutePath: (raw: string, base?: string) => string;
+const getCommandFile: (command: string, root?: string) => string | undefined;
+const getFilePaths: (path: string, exclude?: string[]) => string[];
+const getDirectoryPaths: (path: string) => string[];
+```
+
 #### 2. Child Process Utilities
 
 Provides a Promise wrapper for `child_process`, making it easy to execute shell commands using `async/await`.
@@ -136,6 +175,17 @@ async function run() {
   }
 }
 run();
+```
+
+**Type Annotations:**
+```typescript
+import type { ExecOptions } from "node:child_process";
+
+namespace child_process {
+  const Promisify: {
+    exec: (command: string, options: ExecOptions) => Promise<string>;
+  };
+}
 ```
 
 #### 3. Path Program Parser
@@ -155,4 +205,16 @@ async function findPrograms() {
   }
 }
 findPrograms();
+```
+
+**Type Annotations:**
+```typescript
+type PathProgramInfo = {
+  name: string;
+  type: string;
+  call: string;
+  path: string;
+};
+
+const getPathProgram: () => Promise<Map<string, PathProgramInfo[]>>;
 ```

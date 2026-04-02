@@ -10,7 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "directory": "https://github.com/AshenBird/mcswift-utils/tree/main/packages/base-utils"
+    "url": "git+git+https://github.com/AshenBird/mcswift-utils.git",
+    "directory": "packages/base-utils"
   },
   "files": [
     "lib/**/*"

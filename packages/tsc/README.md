@@ -18,7 +18,7 @@ pnpm add @mcswift/tsc
 
 > **注意：** 使用该包需要在运行环境中已经安装了 `typescript` 并确保在 `node_modules/.bin` 下能够找到 `tsc` 命令。
 
-### 使用指南
+### 使用指南及接口文档
 
 你可以使用 `generatorDeclare` 快速为指定目录生成 TypeScript 声明文件，底层会自动查找并调用 `tsc`。
 
@@ -53,6 +53,16 @@ async function build() {
 }
 ```
 
+**类型注释：**
+```typescript
+const generatorDeclare: (
+  inputDir: string,
+  outDir: string,
+  root?: string,
+  tsconfig?: string
+) => Promise<void>;
+```
+
 ---
 
 ## English
@@ -69,7 +79,7 @@ pnpm add @mcswift/tsc
 
 > **Note:** Using this package requires `typescript` to be installed in your runtime environment, and ensuring the `tsc` command can be found under `node_modules/.bin`.
 
-### Usage Guide
+### Usage Guide & API Documentation
 
 You can use `generatorDeclare` to quickly generate TypeScript declaration files for a specified directory. It automatically locates and invokes `tsc` under the hood.
 
@@ -102,4 +112,14 @@ async function build() {
   
   await generatorDeclare("src", "dist/types", rootDir, tsconfigPath);
 }
+```
+
+**Type Annotations:**
+```typescript
+const generatorDeclare: (
+  inputDir: string,
+  outDir: string,
+  root?: string,
+  tsconfig?: string
+) => Promise<void>;
 ```

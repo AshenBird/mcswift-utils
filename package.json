@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "directory": "https://github.com/AshenBird/mcswift-utils"
+    "url": "git+git+https://github.com/AshenBird/mcswift-utils.git"
   },
   "type": "module",
   "scripts": {
@@ -19,16 +19,10 @@
     "lint": "oxnode scripts/cli lint",
     "build": "oxnode scripts/cli build",
     "publish": "oxnode scripts/cli publish",
+    "clear": "oxnode scripts/cli clear",
     "prepare": "vp config"
   },
   "devDependencies": {
-    "@mcswift/base-utils": "workspace:*",
-    "@mcswift/cli": "workspace:*",
-    "@mcswift/esbuild": "workspace:*",
-    "@mcswift/node": "workspace:*",
-    "@mcswift/npm": "workspace:*",
-    "@mcswift/tsc": "workspace:*",
-    "@mcswift/types": "workspace:*",
     "@oxc-node/cli": "^0.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "catalog:",

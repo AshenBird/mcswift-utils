@@ -2,9 +2,9 @@ import chalk from "chalk";
 import { join } from "path";
 import { getPackageDir, workspace } from "./utils";
 import { existsSync } from "node:fs";
-import { NpmPackage } from "@mcswift/npm";
-import { Logger } from "@mcswift/base-utils";
-import { type NPM } from "@mcswift/types";
+import { NpmPackage } from "../packages/npm/src";
+import { Logger } from "../packages/base-utils/src";
+import { type NPM } from "../packages/types/src";
 export const check = async (name: string) => {
   const dir = getPackageDir(name);
   const packInfo = new NpmPackage(dir);

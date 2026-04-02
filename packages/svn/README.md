@@ -18,7 +18,7 @@ pnpm add @mcswift/svn
 
 > **注意：** 使用该包需要在运行环境中已经安装并配置好了 `svn` 命令行工具。
 
-### 使用指南
+### 使用指南及接口文档
 
 所有操作都通过 `Svn` 类的静态属性或方法来完成，默认以当前工作目录（`process.cwd()`）作为操作目标。
 
@@ -38,6 +38,30 @@ console.log("URL:", info.URL);
 console.log("Last Changed Author:", info.LastChangedAuthor);
 ```
 
+**类型注释：**
+```typescript
+type SvnInfo = {
+  Path: string;
+  WorkingCopyRootPath: string;
+  URL: string;
+  RelativeURL: string;
+  RepositoryRoot: string;
+  RepositoryUUID: string;
+  Revision: string;
+  NodeKind: string;
+  Schedule: string;
+  LastChangedAuthor: string;
+  LastChangedRev: string;
+  LastChangedDate: string;
+  raw: string;
+};
+
+class Svn {
+  static get info(): SvnInfo;
+  static get revision(): string;
+}
+```
+
 #### 2. 获取文件状态 (Status)
 
 获取工作副本的变更状态，包括未跟踪、已修改等文件列表及数量统计：
@@ -49,6 +73,28 @@ const statusInfo = Svn.status;
 
 console.log("总变更数:", statusInfo.counts.total);
 console.log("详细状态列表:", statusInfo.status);
+```
+
+**类型注释：**
+```typescript
+type SvnStatusRecord = {
+  type: string;
+  path: string;
+  absolute: string;
+};
+
+type SvnStatusResult = {
+  counts: {
+    total: number;
+    [type: string]: number;
+  };
+  status: SvnStatusRecord[];
+  raw: string;
+};
+
+class Svn {
+  static get status(): SvnStatusResult;
+}
 ```
 
 #### 3. 更新与提交
@@ -68,6 +114,14 @@ const commitMessage = "fix: update configurations";
 Svn.commit(filesToCommit, commitMessage);
 ```
 
+**类型注释：**
+```typescript
+class Svn {
+  static update(root?: string): void;
+  static commit(fileList: string[], message: string, root?: string): void;
+}
+```
+
 ---
 
 ## English
@@ -84,7 +138,7 @@ pnpm add @mcswift/svn
 
 > **Note:** Using this package requires the `svn` command-line tool to be installed and configured in your runtime environment.
 
-### Usage Guide
+### Usage Guide & API Documentation
 
 All operations are performed through static properties or methods of the `Svn` class, defaulting to the current working directory (`process.cwd()`) as the target.
 
@@ -104,6 +158,30 @@ console.log("URL:", info.URL);
 console.log("Last Changed Author:", info.LastChangedAuthor);
 ```
 
+**Type Annotations:**
+```typescript
+type SvnInfo = {
+  Path: string;
+  WorkingCopyRootPath: string;
+  URL: string;
+  RelativeURL: string;
+  RepositoryRoot: string;
+  RepositoryUUID: string;
+  Revision: string;
+  NodeKind: string;
+  Schedule: string;
+  LastChangedAuthor: string;
+  LastChangedRev: string;
+  LastChangedDate: string;
+  raw: string;
+};
+
+class Svn {
+  static get info(): SvnInfo;
+  static get revision(): string;
+}
+```
+
 #### 2. Get File Status
 
 Get the modification status of the working copy, including a list of untracked/modified files and count statistics:
@@ -115,6 +193,28 @@ const statusInfo = Svn.status;
 
 console.log("Total changes:", statusInfo.counts.total);
 console.log("Detailed status list:", statusInfo.status);
+```
+
+**Type Annotations:**
+```typescript
+type SvnStatusRecord = {
+  type: string;
+  path: string;
+  absolute: string;
+};
+
+type SvnStatusResult = {
+  counts: {
+    total: number;
+    [type: string]: number;
+  };
+  status: SvnStatusRecord[];
+  raw: string;
+};
+
+class Svn {
+  static get status(): SvnStatusResult;
+}
 ```
 
 #### 3. Update and Commit
@@ -132,4 +232,12 @@ const filesToCommit = ["src/index.ts", "package.json"];
 const commitMessage = "fix: update configurations";
 
 Svn.commit(filesToCommit, commitMessage);
+```
+
+**Type Annotations:**
+```typescript
+class Svn {
+  static update(root?: string): void;
+  static commit(fileList: string[], message: string, root?: string): void;
+}
 ```

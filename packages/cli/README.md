@@ -16,7 +16,7 @@ npm install @mcswift/cli
 pnpm add @mcswift/cli
 ```
 
-### 使用指南
+### 使用指南及接口文档
 
 #### 1. 基础使用
 
@@ -37,10 +37,17 @@ cli.use("hello", (options, ctx) => {
 cli.start();
 ```
 
-如果将上述代码保存为 `bin.js`，你可以这样调用它：
-
-```bash
-node bin.js hello --name mcswift -f
+**类型注释：**
+```typescript
+class Cli {
+  readonly name: string;
+  constructor(name?: string);
+  use<T extends Options>(init: CommandInit<T>): this;
+  use<T extends Options>(command: Command<T>): this;
+  use(name: string, handle: Handle<Options>): this;
+  run(name: string | string[], options?: Options): Promise<this>;
+  start(): void;
+}
 ```
 
 #### 2. 使用配置对象注册命令
@@ -68,6 +75,21 @@ cli.use({
 cli.start();
 ```
 
+**类型注释：**
+```typescript
+type Options = Record<string, string | number | boolean>;
+
+interface Handle<T extends Options> {
+  (options: T, cli: Cli): unknown;
+}
+
+type CommandInit<T extends Options> = {
+  name: string;
+  handle: Handle<T>;
+  schema?: { parse: (val: unknown) => T }; // 兼容 Zod 等库的 parse 方法
+};
+```
+
 #### 3. 使用 Command 类
 
 你也可以通过实例化 `Command` 类，并将其传递给 `use` 方法进行注册：
@@ -88,6 +110,16 @@ cli.use(serveCmd);
 cli.start();
 ```
 
+**类型注释：**
+```typescript
+class Command<T extends Options = Options> {
+  name: string;
+  handle: Handle<T>;
+  schema?: { parse: (val: unknown) => T };
+  constructor(options: CommandInit<T>);
+}
+```
+
 #### 4. 编程式调用命令
 
 除了自动解析 `argv` 的 `cli.start()` 外，你也可以在代码中手动运行注册的命令：
@@ -101,6 +133,23 @@ cli.run("init", { template: "vue" });
 
 // 支持依次执行多个命令
 cli.run(["init", "build"]);
+```
+
+#### 5. 命令行参数解析工具
+
+提供底层的命令行参数解析函数。
+
+```typescript
+import { resolveCliOption } from "@mcswift/cli";
+
+// 将类似 ["--name", "mcswift", "--force"] 的数组解析为对象
+const options = resolveCliOption(process.argv.slice(3));
+// => { name: "mcswift", force: true }
+```
+
+**类型注释：**
+```typescript
+const resolveCliOption: <O extends Options = Options>(options: string[]) => O;
 ```
 
 ---
@@ -117,7 +166,7 @@ npm install @mcswift/cli
 pnpm add @mcswift/cli
 ```
 
-### Usage Guide
+### Usage Guide & API Documentation
 
 #### 1. Basic Usage
 
@@ -138,10 +187,17 @@ cli.use("hello", (options, ctx) => {
 cli.start();
 ```
 
-If you save the above code as `bin.js`, you can call it like this:
-
-```bash
-node bin.js hello --name mcswift -f
+**Type Annotations:**
+```typescript
+class Cli {
+  readonly name: string;
+  constructor(name?: string);
+  use<T extends Options>(init: CommandInit<T>): this;
+  use<T extends Options>(command: Command<T>): this;
+  use(name: string, handle: Handle<Options>): this;
+  run(name: string | string[], options?: Options): Promise<this>;
+  start(): void;
+}
 ```
 
 #### 2. Registering Commands with a Configuration Object
@@ -169,6 +225,21 @@ cli.use({
 cli.start();
 ```
 
+**Type Annotations:**
+```typescript
+type Options = Record<string, string | number | boolean>;
+
+interface Handle<T extends Options> {
+  (options: T, cli: Cli): unknown;
+}
+
+type CommandInit<T extends Options> = {
+  name: string;
+  handle: Handle<T>;
+  schema?: { parse: (val: unknown) => T }; // Compatible with parse method of Zod and similar libraries
+};
+```
+
 #### 3. Using the Command Class
 
 You can also instantiate the `Command` class and pass it to the `use` method for registration:
@@ -189,6 +260,16 @@ cli.use(serveCmd);
 cli.start();
 ```
 
+**Type Annotations:**
+```typescript
+class Command<T extends Options = Options> {
+  name: string;
+  handle: Handle<T>;
+  schema?: { parse: (val: unknown) => T };
+  constructor(options: CommandInit<T>);
+}
+```
+
 #### 4. Programmatic Command Invocation
 
 Besides automatically parsing `argv` with `cli.start()`, you can also manually run registered commands within your code:
@@ -202,4 +283,21 @@ cli.run("init", { template: "vue" });
 
 // Supports executing multiple commands sequentially
 cli.run(["init", "build"]);
+```
+
+#### 5. Command-line Argument Parser Utility
+
+Provides an underlying command-line argument parsing function.
+
+```typescript
+import { resolveCliOption } from "@mcswift/cli";
+
+// Parse an array like ["--name", "mcswift", "--force"] into an object
+const options = resolveCliOption(process.argv.slice(3));
+// => { name: "mcswift", force: true }
+```
+
+**Type Annotations:**
+```typescript
+const resolveCliOption: <O extends Options = Options>(options: string[]) => O;
 ```

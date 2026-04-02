@@ -1,7 +1,7 @@
 import { readdirSync } from "node:fs";
 import { resolve } from "node:path";
-import { Logger } from "@mcswift/base-utils";
-import { NpmPackage } from "@mcswift/npm";
+import { Logger } from "../packages/base-utils/src";
+import { NpmPackage } from "../packages/npm/src";
 import console from "node:console";
 const __dirname = import.meta.dirname;
 export const workspace = new NpmPackage(resolve(__dirname, `../`));

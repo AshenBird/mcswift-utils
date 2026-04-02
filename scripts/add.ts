@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Cli, Command } from "@mcswift/cli";
+import { Cli, Command } from "../packages/cli/src";
 import { ensureDirSync } from "fs-extra";
 import { getPackageDir } from "./utils";
 import { existsSync } from "node:fs";

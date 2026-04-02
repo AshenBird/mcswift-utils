@@ -1,11 +1,12 @@
-import { Logger } from "@mcswift/base-utils";
+import { Logger } from "../packages/base-utils/src";
 import { join } from "path";
 import { getPackageDir, root } from "./utils";
 import { existsSync } from "node:fs";
 import { emptyDirSync, ensureDirSync } from "fs-extra";
 import { build as tsdownBuild } from "tsdown";
-import { getFilePaths } from "@mcswift/node";
-import { NpmPackage } from "@mcswift/npm";
+import { getFilePaths } from "../packages/node/src";
+import { NpmPackage } from "../packages/npm/src";
+import { spawn } from "child_process";
 // import console from "node:console";
 // import { NPM } from "@mcswift/types";
 export const build = async (name: string) => {
@@ -14,6 +15,23 @@ export const build = async (name: string) => {
   const packDirPath = getPackageDir(name);
   if (!existsSync(packDirPath)) {
     throw new Error(`can't found ${name} package`);
+  }
+  const packInfoInst = new NpmPackage(packDirPath);
+  const packScripts = packInfoInst.getPackageInfo().scripts;
+  if (packScripts && packScripts["build"]) {
+    // 如果子包存在build脚本，直接调用
+    const { resolve, reject, promise } = Promise.withResolvers<void>();
+    spawn("pnpm", ["run", "build"], { stdio: "inherit", cwd: packDirPath }).on(
+      "exit",
+      (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`build ${name} failed`));
+        }
+      },
+    );
+    return promise;
   }
   Logger.log(`@mcswift/${name} BUILD BEGIN`);
   const src = join(packDirPath, "src");
@@ -48,7 +66,6 @@ export const build = async (name: string) => {
       },
     }),
   );
-  const packInfoInst = new NpmPackage(packDirPath);
   const workspacePackInst = new NpmPackage(root);
 
   const info = packInfoInst.getPackageInfo();
@@ -66,11 +83,12 @@ export const build = async (name: string) => {
     };
   }
   packInfoInst.setPackageInfo("exports", newExps);
-  packInfoInst.deletePackageInfo("scripts");
+  // packInfoInst.deletePackageInfo("scripts");
   const repository = workspacePackInst.getPackageInfo().repository;
   packInfoInst.setPackageInfo("repository", {
     type: "git",
-    directory: `${(repository as { directory: string }).directory}/tree/main/packages/${name}`,
+    url: (repository as { url: string }).url,
+    directory: `packages/${name}`,
   });
   packInfoInst.setPackageInfo("author", {
     name: "McSwift",

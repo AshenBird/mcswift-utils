@@ -1,29 +1,22 @@
-import { defineConfig } from 'vite-plus';
+import { defineConfig } from "vite-plus";
 
 export default defineConfig({
   staged: {
-    "*": "vp check --fix"
+    "*": "vp run lint",
   },
   fmt: {},
   lint: {
-    "plugins": [
-      "oxc",
-      "typescript",
-      "unicorn",
-      "react"
-    ],
-    "categories": {
-      "correctness": "warn"
+    plugins: ["oxc", "typescript", "unicorn", "react"],
+    categories: {
+      correctness: "warn",
     },
-    "env": {
-      "builtin": true
+    env: {
+      builtin: true,
     },
-    "overrides": [
+    overrides: [
       {
-        "files": [
-          "**/*.{js,ts,jsx,tsx}"
-        ],
-        "rules": {
+        files: ["**/*.{js,ts,jsx,tsx}"],
+        rules: {
           "constructor-super": "error",
           "for-direction": "error",
           "getter-return": "error",
@@ -84,38 +77,32 @@ export default defineConfig({
           "preserve-caught-error": "error",
           "require-yield": "error",
           "use-isnan": "error",
-          "valid-typeof": "error"
-        }
+          "valid-typeof": "error",
+        },
       },
       {
-        "files": [
-          "**/*.{js,ts,jsx,tsx,mjs,cjs}"
-        ],
-        "rules": {
+        files: ["**/*.{js,ts,jsx,tsx,mjs,cjs}"],
+        rules: {
           "no-unused-vars": [
             "error",
             {
-              "args": "all",
-              "argsIgnorePattern": "^_",
-              "caughtErrors": "all",
-              "caughtErrorsIgnorePattern": "^_",
-              "destructuredArrayIgnorePattern": "^_",
-              "varsIgnorePattern": "^_",
-              "ignoreRestSiblings": true
-            }
+              args: "all",
+              argsIgnorePattern: "^_",
+              caughtErrors: "all",
+              caughtErrorsIgnorePattern: "^_",
+              destructuredArrayIgnorePattern: "^_",
+              varsIgnorePattern: "^_",
+              ignoreRestSiblings: true,
+            },
           ],
-          "typescript/ban-ts-comment": [
-            "off"
-          ],
-          "typescript/no-explicit-any": [
-            "off"
-          ]
-        }
-      }
+          "typescript/ban-ts-comment": ["off"],
+          "typescript/no-explicit-any": ["off"],
+        },
+      },
     ],
-    "options": {
-      "typeAware": true,
-      "typeCheck": true
-    }
+    options: {
+      typeAware: true,
+      typeCheck: true,
+    },
   },
 });

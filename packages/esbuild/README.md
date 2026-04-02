@@ -16,7 +16,7 @@ npm install @mcswift/esbuild
 pnpm add @mcswift/esbuild
 ```
 
-### 使用指南
+### 使用指南及接口文档
 
 在你的 esbuild 构建脚本中引入并使用 `mandatoryFileExtensionsPlugin`。
 
@@ -60,6 +60,24 @@ build({
 });
 ```
 
+**类型注释：**
+```typescript
+import type { Plugin, BuildOptions, OnLoadOptions } from "esbuild";
+
+type Awaitable<T> = PromiseLike<T> | T;
+
+export interface PluginOptions {
+  filter?: OnLoadOptions["filter"];
+  namespace?: OnLoadOptions["namespace"];
+  esm?: boolean | ((initialOptions: BuildOptions) => Awaitable<boolean>);
+  cjsExtension?: string | ((initialOptions: BuildOptions) => Awaitable<string>);
+  esmExtension?: string | ((initialOptions: BuildOptions) => Awaitable<string>);
+}
+
+export const mandatoryFileExtensionsPlugin: (options?: PluginOptions) => Plugin;
+export const version: string;
+```
+
 ### 配置选项
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -84,7 +102,7 @@ npm install @mcswift/esbuild
 pnpm add @mcswift/esbuild
 ```
 
-### Usage Guide
+### Usage Guide & API Documentation
 
 Import and use the `mandatoryFileExtensionsPlugin` in your esbuild build script.
 
@@ -126,6 +144,24 @@ build({
     }),
   ],
 });
+```
+
+**Type Annotations:**
+```typescript
+import type { Plugin, BuildOptions, OnLoadOptions } from "esbuild";
+
+type Awaitable<T> = PromiseLike<T> | T;
+
+export interface PluginOptions {
+  filter?: OnLoadOptions["filter"];
+  namespace?: OnLoadOptions["namespace"];
+  esm?: boolean | ((initialOptions: BuildOptions) => Awaitable<boolean>);
+  cjsExtension?: string | ((initialOptions: BuildOptions) => Awaitable<string>);
+  esmExtension?: string | ((initialOptions: BuildOptions) => Awaitable<string>);
+}
+
+export const mandatoryFileExtensionsPlugin: (options?: PluginOptions) => Plugin;
+export const version: string;
 ```
 
 ### Configuration Options

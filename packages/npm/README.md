@@ -16,7 +16,7 @@ npm install @mcswift/npm
 pnpm add @mcswift/npm
 ```
 
-### 使用指南
+### 使用指南及接口文档
 
 `NpmPackage` 类可以实例化以表示某个目录下的 npm 包（对应其 `package.json`），也提供了几个静态方法直接读写信息。
 
@@ -42,6 +42,24 @@ pkg.deletePackageInfo("description");
 
 // 获取完整的数据
 console.log(pkg.data);
+```
+
+**类型注释：**
+```typescript
+import type { NPM } from "@mcswift/types";
+
+class NpmPackage {
+  root: string;
+  constructor(root: string);
+  get data(): NPM.Package;
+  getPackageInfo(): NPM.Package;
+  setPackageInfo<K extends keyof Required<NPM.Package>>(key: K, value: Required<NPM.Package>[K]): void;
+  deletePackageInfo<K extends keyof Required<NPM.Package>>(key: K): void;
+  
+  static getPackageInfo: (root?: string) => NPM.Package;
+  static setPackageInfo: <K extends keyof Required<NPM.Package>>(key: K, value: Required<NPM.Package>[K], root?: string) => void;
+  static deletePackageInfo: <K extends keyof Required<NPM.Package>>(key: K, root?: string) => void;
+}
 ```
 
 #### 2. 静态方法使用
@@ -77,7 +95,7 @@ npm install @mcswift/npm
 pnpm add @mcswift/npm
 ```
 
-### Usage Guide
+### Usage Guide & API Documentation
 
 The `NpmPackage` class can be instantiated to represent an npm package in a specific directory (corresponding to its `package.json`). It also provides several static methods for direct reading and writing.
 
@@ -103,6 +121,24 @@ pkg.deletePackageInfo("description");
 
 // Get the complete data
 console.log(pkg.data);
+```
+
+**Type Annotations:**
+```typescript
+import type { NPM } from "@mcswift/types";
+
+class NpmPackage {
+  root: string;
+  constructor(root: string);
+  get data(): NPM.Package;
+  getPackageInfo(): NPM.Package;
+  setPackageInfo<K extends keyof Required<NPM.Package>>(key: K, value: Required<NPM.Package>[K]): void;
+  deletePackageInfo<K extends keyof Required<NPM.Package>>(key: K): void;
+  
+  static getPackageInfo: (root?: string) => NPM.Package;
+  static setPackageInfo: <K extends keyof Required<NPM.Package>>(key: K, value: Required<NPM.Package>[K], root?: string) => void;
+  static deletePackageInfo: <K extends keyof Required<NPM.Package>>(key: K, root?: string) => void;
+}
 ```
 
 #### 2. Static Method Usage
