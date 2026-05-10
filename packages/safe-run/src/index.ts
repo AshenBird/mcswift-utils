@@ -2,7 +2,7 @@
  * @description 该函数的目的是帮助用户线性的解决 promise 的错误处理
  * 为了方便用户对结果进行解构，并减少不必要的类型检查，我们将返回值索引 1 的类型，断言为传入 promise 的结果类型。
  * 请通过索引 0 的存在性判断是否错误
- * @param promise 一个仁义的 Promise 对象
+ * @param promise 一个任意类型的 Promise 对象
  * @returns 返回一个元组，索引 0 为捕捉到的异常，索引 1 为正常的结果
  */
 export const safeAwait = async <Result = unknown>(

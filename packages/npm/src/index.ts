@@ -2,6 +2,8 @@ import { getAbsolutePath } from "@mcswift/node";
 
 import type { NPM } from "@mcswift/types";
 import { readJSONSync, writeJSONSync } from "fs-extra/esm";
+import { simpleClone } from "@mcswift/base-utils";
+export { NPM };
 export class NpmPackage {
   root: string;
   constructor(root: string) {
@@ -19,24 +21,49 @@ export class NpmPackage {
   }
   private cache: NPM.Package | null = null;
   get data() {
-    if (this.cache) return this.cache;
-    return this.getPackageInfo();
+    if (!this.cache) this.getPackageInfo();
+    return simpleClone(this.cache);
   }
-  getPackageInfo() {
+  get<K extends keyof Required<NPM.Package>>(key: K): NPM.Package[K] {
+    return this.data[key];
+  }
+  set<K extends keyof Required<NPM.Package>>(
+    key: K,
+    value: NPM.Package[K],
+    withSave = false,
+  ) {
+    if (!this.cache) {
+      this.getPackageInfo();
+    }
+    Reflect.set(this.cache as NPM.Package, key, value);
+    if (withSave) {
+      this.save();
+    }
+  }
+  save() {
+    const p = getAbsolutePath(this.root);
+    const content = NpmPackage.getPackageInfo(this.root);
+    const result = writeJSONSync(`${p}/package.json`, content, {
+      spaces: 2,
+      EOL: "\n",
+    });
+    return result;
+  }
+  delete<K extends keyof Required<NPM.Package>>(key: K, withSave = false) {
+    if (!this.cache) {
+      this.getPackageInfo();
+    }
+    Reflect.deleteProperty(this.cache as NPM.Package, key);
+    if (withSave) {
+      this.save();
+    }
+  }
+  private getPackageInfo() {
     this.cache = NpmPackage.getPackageInfo(this.root);
-    Object.seal(this.cache);
+    // Object.seal(this.cache);
     return this.cache;
   }
-  setPackageInfo<K extends keyof Required<NPM.Package>>(
-    key: K,
-    value: Required<NPM.Package>[K],
-  ) {
-    return NpmPackage.setPackageInfo(key, value, this.root);
-  }
-  deletePackageInfo<K extends keyof Required<NPM.Package>>(key: K) {
-    return NpmPackage.deletePackageInfo(key, this.root);
-  }
-  static deletePackageInfo = <K extends keyof Required<NPM.Package>>(
+  static delete = <K extends keyof Required<NPM.Package>>(
     key: K,
     root = "./",
   ) => {
@@ -54,7 +81,7 @@ export class NpmPackage {
     const result = readJSONSync(`${p}/package.json`) as NPM.Package;
     return result;
   };
-  static setPackageInfo = <K extends keyof Required<NPM.Package>>(
+  static set = <K extends keyof Required<NPM.Package>>(
     key: K,
     value: Required<NPM.Package>[K],
     root = "./",
@@ -67,5 +94,10 @@ export class NpmPackage {
       EOL: "\n",
     });
     return result;
+  };
+
+  static get = <K extends keyof Required<NPM.Package>>(key: K, root = "./") => {
+    const content = this.getPackageInfo(root);
+    return content[key];
   };
 }

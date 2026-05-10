@@ -1,11 +1,11 @@
-import { Logger } from "../packages/base-utils/src";
+import { Logger } from "@mcswift/base-utils";
+import { getFilePaths } from "@mcswift/node";
+import { NpmPackage } from "@mcswift/npm";
 import { join } from "path";
 import { getPackageDir, root } from "./utils";
 import { existsSync } from "node:fs";
 import { emptyDirSync, ensureDirSync } from "fs-extra";
 import { build as tsdownBuild } from "tsdown";
-import { getFilePaths } from "../packages/node/src";
-import { NpmPackage } from "../packages/npm/src";
 import { spawn } from "child_process";
 // import console from "node:console";
 // import { NPM } from "@mcswift/types";

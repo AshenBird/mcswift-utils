@@ -20,6 +20,21 @@ importers:
 
   .:
     devDependencies:
+      '@mcswift/base-utils':
+        specifier: ^1.0.19
+        version: 1.0.19
+      '@mcswift/cli':
+        specifier: ^1.0.19
+        version: 1.0.19
+      '@mcswift/node':
+        specifier: ^1.0.19
+        version: 1.0.19
+      '@mcswift/npm':
+        specifier: ^1.0.19
+        version: 1.0.19
+      '@mcswift/types':
+        specifier: ^1.0.19
+        version: 1.0.19
       '@oxc-node/cli':
         specifier: ^0.1.0
         version: 0.1.0
@@ -110,22 +125,6 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.31(typescript@6.0.2)
-
-  packages/esbuild:
-    dependencies:
-      '@mcswift/types':
-        specifier: workspace:^
-        version: link:../types
-    devDependencies:
-      '@types/node':
-        specifier: ^25.5.0
-        version: 25.5.0
-      esbuild:
-        specifier: ^0.27.4
-        version: 0.27.4
-      typescript:
-        specifier: ^6.0.2
-        version: 6.0.2
 
   packages/node:
     dependencies:
@@ -223,9 +222,6 @@ importers:
       '@mcswift/cli':
         specifier: workspace:^
         version: link:../cli
-      '@mcswift/esbuild':
-        specifier: workspace:^
-        version: link:../esbuild
       '@mcswift/node':
         specifier: workspace:^
         version: link:../node
@@ -836,8 +832,23 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
+  '@mcswift/base-utils@1.0.19':
+    resolution: {integrity: sha512-mVQa8PPb42S1w8BkBKs0MjDLI1aJDmSVnoRLcQoIoIwHGAhYZtNplh8ubQ2ff1COoyUCrDkXHDSBPHtfH9AiMg==}
+
   '@mcswift/bellman@0.0.8':
     resolution: {integrity: sha512-rwVm1GkEZ2QfbuHnDb9OBVJytmXWI2DYiERAgQCmNFUqBQKaj2u/tYcdJ4neFJtTAc7nD+yYozcnP7hXvZZ3rA==}
+
+  '@mcswift/cli@1.0.19':
+    resolution: {integrity: sha512-baw+NDM5RKFsl90L/Y+39Cji3hXviOVK+taDd7cWUxzMFKEWkixIJU8yca3R9maO/c52dCZQXIv0yqeIw6i7fA==}
+
+  '@mcswift/node@1.0.19':
+    resolution: {integrity: sha512-tOe8R1S54m645cN0fC6kvb93JhJOvbMjQcLwpeXx4/01iFNLYW0Et09JYBSq1basPRtDnXr/ygwJ9PCwEcWO7w==}
+
+  '@mcswift/npm@1.0.19':
+    resolution: {integrity: sha512-QqT4TFIEwiGwCRvosD+t3ZXvQIaf5WwrmXyJXwqkJRkr91cDOMWk7LIdiFxEf7JlX8SelZ2KvcXxlqcItp14Zw==}
+
+  '@mcswift/types@1.0.19':
+    resolution: {integrity: sha512-5j/SEslHFJ1Bbog0ZJF3rqdnn9SJqVuLNaiVaBIgbBhZuLBmxGWY1GFd8M41XhQpIjZOe9ijxATlR/E0i8OTUw==}
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
@@ -3981,7 +3992,32 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@mcswift/base-utils@1.0.19':
+    dependencies:
+      '@mcswift/bellman': 0.0.8
+      '@mcswift/types': 1.0.19
+      chalk: 5.6.2
+      nanoid: 5.1.7
+    optionalDependencies:
+      zod: 4.3.6
+
   '@mcswift/bellman@0.0.8': {}
+
+  '@mcswift/cli@1.0.19':
+    dependencies:
+      '@mcswift/base-utils': 1.0.19
+
+  '@mcswift/node@1.0.19':
+    dependencies:
+      '@mcswift/types': 1.0.19
+
+  '@mcswift/npm@1.0.19':
+    dependencies:
+      '@mcswift/node': 1.0.19
+      '@mcswift/types': 1.0.19
+      pnpm: 10.33.0
+
+  '@mcswift/types@1.0.19': {}
 
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:

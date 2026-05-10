@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/workspace",
-  "version": "1.0.19",
+  "version": "2.0.0",
   "private": true,
   "description": "",
   "keywords": [],
@@ -23,6 +23,11 @@
     "prepare": "vp config"
   },
   "devDependencies": {
+    "@mcswift/base-utils": "^1.0.19",
+    "@mcswift/cli": "^1.0.19",
+    "@mcswift/node": "^1.0.19",
+    "@mcswift/npm": "^1.0.19",
+    "@mcswift/types": "^1.0.19",
     "@oxc-node/cli": "^0.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "catalog:",

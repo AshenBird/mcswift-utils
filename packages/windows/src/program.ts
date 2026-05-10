@@ -1,7 +1,5 @@
-
 import { getInstalledAppCommand as command } from "./commands";
-import { Promisify } from "@mcswift/node/child_process"
-
+import { Promisify } from "@mcswift/node/child_process";
 // windows 已安装应用信息数据类型
 type InstalledAppRecord = {
   path: string;
@@ -22,12 +20,12 @@ export const installedAppMap = new Map<string, InstalledAppRecord>();
 export const getInstalledApp = async (): Promise<InstalledAppMap> => {
   // 清除旧数据
   installedAppMap.clear();
-  
+
   // powershell 获取数据
   const stdout = await Promisify.exec(command, {
     shell: "powershell",
   });
-  
+
   // 解析出原始数据
   const raw = JSON.parse(stdout) as InstalledAppRaw[];
   // 遍历处理数据

@@ -1,13 +1,6 @@
-import type { Options, Schema } from "./types";
+import type { Options } from "./types";
 
-export const resolveCliOption = <
-  O extends Options = Options,
-  S extends Schema = Schema,
->(
-  options: string[],
-  schema?: S,
-): O => {
-  if (schema) return resolveCliOptionWithSchema(options, schema);
+export const splitOptions = (options: string[]) => {
   const first = options
     .join(" ") // 重新拼接成字符串
     .split("--"); // 按照 -- 重新分隔
@@ -41,21 +34,37 @@ export const resolveCliOption = <
     // 通常参数
     result[k] = optionHandle(v);
   }
-  return result as O;
+  return result;
 };
 
 // 将一些模式值转换成 js 兼容的值
-export const optionHandle = (
+
+export function optionHandle(
   val: string,
-  forceString = false,
-): string | boolean | number => {
+): string | boolean | number | (string | boolean | number)[];
+export function optionHandle(val: string, sub: true): string | boolean | number;
+export function optionHandle<T extends boolean = false>(val: string, sub?: T) {
+  // case "bar foo",bar,"foo bar"
+  // exclude case "foo,bar"
+  Array: if (!sub && val.includes(",")) {
+    const splited = val.split(",");
+    if (
+      splited.some((str) => {
+        const cod1 = str.startsWith("`") && !str.endsWith("`");
+        const cod2 = str.startsWith('"') && !str.endsWith('"');
+        return cod1 || cod2;
+      })
+    )
+      break Array;
+    // 当处理子项时，我们将 sub 标志设为 true 强制进入子项逻辑
+    return splited.map((str) => optionHandle(str, true));
+  }
   if (val.startsWith("`") && val.endsWith("`")) {
     return val.slice(1, -1);
   }
   if (val.startsWith('"') && val.endsWith('"')) {
     return val.slice(1, -1);
   }
-  if (forceString) return val;
   if (val === "true") {
     return true;
   }
@@ -65,48 +74,4 @@ export const optionHandle = (
   const r = Number(val);
   if (!isNaN(r)) return r;
   return val;
-};
-const resolveCliOptionWithSchema = <
-  O extends Options = Options,
-  T extends Schema = Schema,
->(
-  args: string[],
-  schema: T,
-): O => {
-  const result = {} as O;
-  const _: string[] = [];
-
-  for (;;) {
-    if (args.length === 0) break;
-    const arg = args.shift() as string;
-    // 标准名称
-    if (arg.startsWith("--")) {
-      const raw = arg.slice(2);
-      if (raw.includes("=")) {
-        const [name, val] = raw.split("=");
-        const value = optionHandle(val, schema.getType(name) === "string");
-        // @ts-ignore
-        result[name] = value;
-        continue;
-      }
-      const name = raw;
-      if (schema.getType(name) === "boolean") {
-        // @ts-ignore
-        result[name] = true;
-        continue;
-      }
-      const val = args.shift();
-      if (!val) throw new Error(`${name} option can't found value.`);
-      const value = optionHandle(val, schema.getType(name) === "string");
-      // @ts-ignore
-      result[name] = value;
-      continue;
-    }
-    // 别名 @todo
-    // if (arg.startsWith("--")) {
-    // }
-  }
-  const report = schema.parse(result);
-  if (report.status) return result;
-  throw report;
-};
+}

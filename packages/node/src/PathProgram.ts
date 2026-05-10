@@ -1,5 +1,5 @@
-
 import { Dirent, existsSync, readdir } from "node:fs";
+import * as process from "node:process";
 const typeRecord = {
   ps1: "powershell",
   cmd: "cmd",
@@ -18,7 +18,9 @@ const canExec = ["ps1", "cmd", "exe", "bat"];
 
 let pathProgramMap: Map<string, PathProgramInfo[]>;
 
-export const getPathProgram = async (): Promise<Map<string, PathProgramInfo[]>> => {
+export const getPathProgram = async (): Promise<
+  Map<string, PathProgramInfo[]>
+> => {
   // 判断缓存
   if (pathProgramMap) return pathProgramMap;
   // 初始化结果

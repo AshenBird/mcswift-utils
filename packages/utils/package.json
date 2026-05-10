@@ -43,13 +43,11 @@
     }
   },
   "dependencies": {
-    "@mcswift/base-utils": "workspace:^",
+    "@mcswift/base": "workspace:^",
     "@mcswift/cli": "workspace:^",
-    "@mcswift/esbuild": "workspace:^",
     "@mcswift/node": "workspace:^",
     "@mcswift/npm": "workspace:^",
     "@mcswift/svn": "workspace:^",
-    "@mcswift/tsc": "workspace:^",
     "@mcswift/types": "workspace:^",
     "@mcswift/windows": "workspace:^"
   },
